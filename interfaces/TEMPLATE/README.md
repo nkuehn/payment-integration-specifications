@@ -11,7 +11,7 @@ TEMPLATE (www.example.com) is a non existing payment provider with market focus 
 See also: [Method keys convention](../../METHOD-KEYS.md)
  
 | CTP conventional key | Name / key at TEMPLATE |
-|--|--|
+|---|---|
 | CREDIT_CARD | CCard |
 
 ## Required Acounts / Permissions / Settings at TEMPLATE
@@ -39,7 +39,7 @@ XXX document to which respective API versions / variants this documentation refe
 * [CT Cart documentation](http://dev.sphere.io/http-api-projects-carts.html#cart)
 
 | CT Cart or Order JSON path | TEMPLATE Server API | TEMPLATE Client / redirect API | Value transform |
-|--|--|--|--|
+|---|---|---|---|
 | id |  |  |  |
 | createdAt |  |  |  |
 | lastModifiedAt |  |  |  |
@@ -113,7 +113,7 @@ FYI: Not all Cart / Order Fields are mentioned here because some are not relevan
 * [CT Payment documentation](http://dev.sphere.io/http-api-projects-payments.html#payment)
 
 | CT payment JSON path | TEMPLATE Server API | TEMPLATE Client / redirect API |  Value transform | 
-|--|--|--|--|
+|---|---|---|---|
 | interfaceId |  |  |  |
 | amountPlanned |  |  |  |
 | amountAuthorized |  |  |  |
@@ -140,7 +140,7 @@ XXX this is just a sample. Please take the commercetools custom payment types (p
 ### CREDIT_CARD
 
 | CT Payment custom property | TEMPLATE Server API | TEMPLATE Client / redirect API | Value transform |
-|--|--|--|--|
+|---|---|---|---|
 | foo |  |  |  |
 | foo |  |  |  |
 | foo |  |  |  |
@@ -154,7 +154,7 @@ XXX this is just a sample. Please take the commercetools custom payment types (p
 ### DIRECTDEBIT_SEPA
 
 | CT Payment custom property | TEMPLATE Server API | TEMPLATE Client / redirect API | Value transform |
-|--|--|--|--|
+|---|---|---|---|
 | foo |  |  |  |
 | foo |  |  |  |
 | foo |  |  |  |
@@ -170,7 +170,7 @@ XXX this is just a sample. Please take the commercetools custom payment types (p
 ### foo 
 
 | CT Payment Interaction custom property | TEMPLATE Server API | TEMPLATE Client / redirect API | Value transform |
-|--|--|--|--|
+|---|---|---|---|
 | foo |  |  |  |
 | foo |  |  |  |
 | foo |  |  |  |
