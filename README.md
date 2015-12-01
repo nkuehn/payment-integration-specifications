@@ -48,6 +48,10 @@ All PSP integration services should at least support the System Interaction Prot
 It defines the standard interaction flow between Frontend Implementation, commercetools platform, the payment integration
 service and the PSP (Server) API. 
 
+## Integration Service Requirements
+
+[Integration-Implementation-Requirements.md](Integration-Implementation-Requirements.md)
+
 ## Integration Service API
 
 Every Payment Integration Service must provide at least a minimum API that is defined here:
