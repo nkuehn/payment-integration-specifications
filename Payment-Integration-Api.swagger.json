@@ -1,0 +1,175 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "commercetools payment microservice",
+    "description": "Control API of the Integration of the commercetools platform with the payment service FooBar",
+    "version": "1.0.0"
+  },
+  "host": "foo-bar-project-key.payone-payments.commercetools.io",
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "basePath": "/api",
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/commercetools/payments/handle": {
+      "post": {
+        "summary": "Trigger to force handling of a commerceotols payment object",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "commercetools id of the payment to be handled",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "version",
+            "in": "query",
+            "description": "Optinally last known version of the payment",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "Products"
+        ],
+        "responses": {
+          "200": {
+            "description": "Found the Payment and successfully handled changes",
+            "schema": {
+              "$ref": "#/definitions/PaymentStatus"
+            }
+          },
+          "202": {
+            "description": "Found the Payment, but the payment API could not immediately complete the necessary actions. Please try again later with the identical request.",
+            "schema": {
+              "$ref": "#/definitions/PaymentStatus"
+            }
+          },
+          "403": {
+            "description": "The configuration of the service does not allow this request (e.g. not on optional IP whitelist, optional required authentication not passed etc.).",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Given Payment could not be found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "409": {
+            "description": "Given Payment does not have the optionally given version any more.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/FooBar/listen": {
+      "get": {
+        "summary": "Receives notification / status calls (e.g. webhooks) from the FooBar payment interfaces. Completely custom per payment interface implementation.",
+        "responses": {
+          "default": {
+            "description": "FooBar specific. often just a string \"OK\"."
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "PaymentStatus": {
+      "type": "object",
+      "description": "describes the overall status and hints the client what to do next",
+      "properties": {
+        "status": {
+          "type": "string"
+        },
+        "clientNextAction": {
+          "type": "string",
+          "description": "if set, only the value \"redirect\" is allowed"
+        },
+        "redirectDefinition": {
+          "$ref": "#/definitions/HttpRequest"
+        }
+      }
+    },
+    "HttpRequest": {
+      "type": "object",
+      "description": "description of an HTTP request that has been received or has to be sent",
+      "properties": {
+        "protocol": {
+          "type": "string"
+        },
+        "user": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "host": {
+          "type": "string"
+        },
+        "port": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "queryParams": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "param": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "postData": {
+          "type": "string"
+        }
+      }
+    },
+    "Error": {
+      "type": "object",
+      "properties": {
+        "statusCode": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
