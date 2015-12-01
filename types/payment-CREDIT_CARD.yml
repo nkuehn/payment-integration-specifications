@@ -1,11 +1,9 @@
 key: payment-CREDIT_CARD
 name: Credit Card Payment Resource
 description:
-  en: extends the CTP Payment Resource with the standard fields for a Credit Card payment.
-      NEVER store Credit Card Data that fall under PCI DSS compliance in the commercetools platform.
+  en: extends the CTP Payment Resource with the standard fields for a Credit Card payment. NEVER store Credit Card Data that fall under PCI DSS compliance in the commercetools platform.
 resourceTypeIds:
-  -
-    payment
+  - payment
 fieldDefinitions:
   # A Reference ID / Hash / Token to the Credit Card Data that have been dircetly posted to the Payment API (PCI compliance)
   -
