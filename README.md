@@ -54,6 +54,8 @@ Every Payment Integration Service must provide at least a minimum API that is de
 
 [Payment-Integration-Api.swagger.yml](Payment-Integration-Api.swagger.yml) 
 
+[Edit and view the Specification in the Swagger Editor](http://editor.swagger.io/#/?import=https://raw.githubusercontent.com/nkuehn/payment-integration-specifications/master/Payment-Integration-Api.swagger.yml)
+
 The File is in the [swagger API specification format](http://swagger.io/specification/). The JSON variant is automatically
 generated and overwritten from the YAML file.  Swagger allows Client implementation to easily generate API Clients for a 
 large number of programming languages and runtime platforms. 
@@ -61,5 +63,5 @@ large number of programming languages and runtime platforms.
 ## TODO
  * add node SDK based tests against live API that create and delete all types (validation). 
  * Let them run on travis.
- * Link to swagger editor with URL of the File here. 
+ 
  
