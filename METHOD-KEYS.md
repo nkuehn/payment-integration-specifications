@@ -3,13 +3,16 @@
 To be used in the following places:
  * commercetools payment object "paymentMethodInfo.method" property. 
 
-The commercetools platform does not restrict you to these values, but it is advisable to use them to ease support and the development of reusable integrations. 
+The commercetools platform does not restrict you to these values, but it is advisable to use them to ease support and 
+the development of reusable integrations. 
 
 Please submit a pull request to add or improve a payment method that does not have a conventional key. 
 
-Specialized Variations of Methods are "flattened", but there are conventions for the high-level method defined here,too (e.g. CREDITCARD, CREDITCARD-MASTERCARD, CREDITCARD-MASTERCARD-3D). 
+Specialized Variations of Methods are "flattened", but there are conventions for the high-level method defined here,too 
+(e.g. CREDITCARD, CREDITCARD-MASTERCARD, CREDITCARD-MASTERCARD-3D). 
 
-Uppercase latin letters, the underscore and decimal numbers are allowed \[A-Z,_,0-9\]\*, the dash is reserved for specialization / variants. 
+Uppercase latin letters, the underscore and decimal numbers are allowed \[A-Z,_,0-9\]\*, the dash is reserved for 
+specialization / variants. 
 
 ## Special values 
 | Key | Description |
@@ -24,26 +27,21 @@ Uppercase latin letters, the underscore and decimal numbers are allowed \[A-Z,_,
 | Key | Name | Description, external references |
 |---|---|---|
 | CASH |  | Used e.g. for POS purchases |
-| CASH_ADVANCE |  | Cash received in advance before goods are shipped |
+| CASH_ADVANCE |  | Cash received in advance before goods are shipped (this is actual Cash, please see BANK_TRANSFER-ADVANCE below for the typical case) |
 | CASH_ON_DELIVERY |  | Delivery Service collects the Money from the buyer. The "PSP" can be directly the delivery service or a wrapper API |
-| INVOICE |  | Goods are paid after delivery based on an invoice. Can be done internally by the merchant |
-| INVOICE-PAYOLUTION |  |  |
-| INVOICE-RATEPAY |  |  |
-| INVOICE-KLARNA |  |  |
+| INVOICE |  | Goods are paid after delivery based on an invoice. Can be done internally by the merchant or via a third party. which way is determined via the `paymentInterface` field |
 | CHECK-ADVANCE |  | Money to be received by merchant in advance via Check / Money Order |
 | DIRECT_DEBIT |  |  |
-| DIRECT_DEBIT-ELV |  |  |
-| DIRECT_DEBIT-SEPA |  |  |
-| INSTALLMENT |  |  |
-| INSTALLMENT-PAYOLUTION |  |  |
-| INSTALLMENT-RATEPAY |  |  |
-| CREDIT_CARD | Credit Card |  |
-| CREDIT_CARD-MASTERCARD |  |  |
-| CREDIT_CARD-MASTERCARD-SECURECODE |  |  |
+| DIRECT_DEBIT-SEPA |  | European Direct Debit System. Formerly called ELV in Germany |
+| INSTALLMENT |  | Can be realized by the merchant or via a 3rd party. Which way is determined via the `paymentInterface` field |
+| CREDIT_CARD | Credit Card | Generic Key for any type of Credit Card (recommended, implementation will autodetect specific variant) |
+| CREDIT_CARD-3DSECURE | Credit Card with explicit whish for 3Dsecure check | Will autodetect the card network, but force 3Dsecure check redirect |
+| CREDIT_CARD-MASTERCARD |  | In case explicit restriction to MasterCard is intended |
+| CREDIT_CARD-MASTERCARD-SECURECODE |  | 3Dsecure of MasterCard |
 | CREDIT_CARD-VISA |  |  |
-| CREDIT_CARD-VISA-VERIFIED_BY_VISA |  |  |
+| CREDIT_CARD-VISA-VERIFIED_BY_VISA |  | 3Dsecure of VISA |
 | CREDIT_CARD-AMERICAN_EXPRESS |  |  |
-| CREDIT_CARD-AMERICAN_EXPRESS-SAFE_KEY |  |  |
+| CREDIT_CARD-AMERICAN_EXPRESS-SAFE_KEY |  | 3Dsecure of Amex |
 | CREDIT_CARD-DINERS_CLUB |  |  |
 | CREDIT_CARD-DISCOVER |  |  |
 | CREDIT_CARD-JCB |  |  |
@@ -53,25 +51,21 @@ Uppercase latin letters, the underscore and decimal numbers are allowed \[A-Z,_,
 | CREDIT |  | (never directly used) |
 | WALLET-PAYPAL | PayPal | The PayPal Wallet |
 | WALLET-PAYPAL | PayPal | The PayPal Wallet |
+| WALLET-SKRILL | Skrill Digital Wallet |  |
+| WALLET-MONETA | moneta.ru |  |
 | BANK_TRANSFER |  | (probably not used directly) |
 | BANK_TRANSFER-ADVANCE |  | Money received by merchant before delivery via Bank Transfer |
 | BANK_TRANSFER |  |  |
 | BANK_TRANSFER-GIROPAY |  | A direct debit style system backed by some german banks |
 | BANK_TRANSFER-SOFORTUEBERWEISUNG |  | pay via you online banking system |
-| BANK_TRANSFER-IDEAL |  |  |
-| BANK_TRANSFER-POSTFINANCE |  |  |
-| MONETA | moneta.ru |  |
-| SKRILL_WALLET | Skrill Digital Wallet |  |
+| BANK_TRANSFER-IDEAL |  | Netherlands specific |
+| BANK_TRANSFER-POSTFINANCE |  | Switzerland specific |
 |  |  |  |
 |  |  |  |
 |  |  |  |
 |  |  |  |
 |  |  |  |
-|  |  |  |
-|  |  |  |
-|  |  |  |
-|  |  |  |
-|  |  |  |
+
 
 
 

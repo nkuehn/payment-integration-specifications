@@ -1,0 +1,25 @@
+{
+  "key": "payment-CREDIT_CARD",
+  "name": "Credit Card Payment Resource",
+  "description": {
+    "en": "extends the CTP Payment Resource with the standard fields for a Credit Card payment. NEVER store Credit Card Data that fall under PCI DSS compliance in the commercetools platform."
+  },
+  "resourceTypeIds": [
+    "payment"
+  ],
+  "fieldDefinitions": [
+    {
+      "type": {
+        "name": "String"
+      },
+      "name": "creditCardDataReference",
+      "label": [
+        {
+          "en": "Anonymized Credit Card Data Reference"
+        }
+      ],
+      "required": false,
+      "inputHint": "SingleLine"
+    }
+  ]
+}
