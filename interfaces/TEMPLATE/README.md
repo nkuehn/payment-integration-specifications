@@ -6,7 +6,6 @@ TEMPLATE (www.example.com) is a non existing payment provider with market focus 
  * XXX please fill links, especially to developer documentation. Also provide information where to get eventually 
  necessary access codes to the information
 
-
 ## Payment methods covered by this specification
 See also: [Method keys convention](../../METHOD-KEYS.md)
  
@@ -133,11 +132,25 @@ FYI: Not all Cart / Order Fields are mentioned here because some are not relevan
 
 See below for the custom fields. 
 
-## commercetools payment object (custom fields per method)
+# Payment Methods 
 
 XXX this is just a sample. Please take the commercetools custom payment types (per method) from the [method type specifications](../../methods/) in the payment specifications project. 
 
-### CREDIT_CARD
+## CREDIT_CARD
+
+### commercetools payment object transactions
+
+ CANCEL_AUTHORIZATION CHARGE REFUND CHARGEBACK
+
+| CT transaction | TEMPLATE equivalent | Notes |
+|---|---|---|
+| AUTHORIZATION |  |  |
+| CANCEL_AUTHORIZATION |  |  |
+| CHARGE |  |  |
+| REFUND |  |  |
+| CHARGEBACK |  |  |
+
+### commercetools payment object custom fields
 
 | CT Payment custom property | TEMPLATE Server API | TEMPLATE Client / redirect API | Value transform |
 |---|---|---|---|
@@ -149,10 +162,20 @@ XXX this is just a sample. Please take the commercetools custom payment types (p
 | foo |  |  |  |
 | foo |  |  |  |
 | foo |  |  |  |
-
 
 ### DIRECTDEBIT_SEPA
 
+### commercetools payment object transactions
+
+| CT transaction | TEMPLATE equivalent | Notes |
+|---|---|---|
+| CHARGE |  |  |
+| REFUND |  |  |
+| CHARGEBACK |  |  |
+
+### commercetools payment object custom fields
+
+
 | CT Payment custom property | TEMPLATE Server API | TEMPLATE Client / redirect API | Value transform |
 |---|---|---|---|
 | foo |  |  |  |
@@ -163,7 +186,6 @@ XXX this is just a sample. Please take the commercetools custom payment types (p
 | foo |  |  |  |
 | foo |  |  |  |
 | foo |  |  |  |
-
 
 ## Payment interaction objects (PSP specific per interaction type)
 
@@ -179,7 +201,6 @@ XXX this is just a sample. Please take the commercetools custom payment types (p
 | foo |  |  |  |
 | foo |  |  |  |
 | foo |  |  |  |
-
 
 # Constraint Rules to be implemented by the Integration
 
