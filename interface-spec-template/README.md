@@ -1,36 +1,50 @@
-# Integrating TEMPLATE with the commercetools platform
-
-TEMPLATE (www.example.com) is a non existing payment provider with market focus on the kingdom of Zelda. 
+# Data Mapping between TEMPLATE and the commercetools platform
 
 ## Relevant reference documentation links:
  * XXX please fill links, especially to developer documentation. Also provide information where to get eventually 
  necessary access codes to the information
 
 ## Payment methods covered by this specification
-See also: [Method keys convention](../../METHOD-KEYS.md)
+See also: [Method keys convention](https://github.com/nkuehn/payment-integration-specifications/blob/master/Method-Keys.md)
  
 | CTP conventional key | Name / key at TEMPLATE |
 |---|---|
 | CREDIT_CARD | CCard |
 
-## Required Acounts / Permissions / Settings at TEMPLATE
 
-XXX document which kind of account, settings, preparations etc. are necessary for the recommended online shop setup. 
-Can point to TEMPLATE documentation, too. 
+# API Data mapping
 
-## Protocols, Libraries & SDKs to be used
+## commercetools payment object (semantically defined base properties)
 
-XXX document here how the payment interface is addressed technically and how the data structures are referenced in 
-the data tables below. 
+* [CT Payment documentation](http://dev.sphere.io/http-api-projects-payments.html#payment)
 
-XXX if existing implementations or SDKs can help, 
+| CT payment JSON path | TEMPLATE Server API | Who is master? |  Value transform | 
+|---|---|---|---|
+| id |  |  |  |
+| version |  |  |  |
+| customer |  |  |  |
+| externalId |  |  |  |
+| interfaceId |  |  |  |
+| amountPlanned |  |  |  |
+| amountAuthorized |  |  |  |
+| authorizedUntil |  |  |  |
+| amountPaid |  |  |  |
+| amountRefunded |  |  |  |
+| paymentMethodInfo.paymentInterface |  |  |  |
+| paymentMethodInfo.method |  |  |  |
+| paymentMethodInfo.name.{locale} |  |  |  |
+| paymentStatus.interfaceCode |  |  |  |
+| paymentStatus.interfaceText |  |  |  |
+| paymentStatus.state |  |  |  |
+| transactions\[\*\].id |  |  |  |
+| transactions\[\*\].timestamp |  |  |  |
+| transactions\[\*\].type |  | TODO type mapping table |  |
+| transactions\[\*\].amount |  |  |  |
+| transactions\[\*\].interactionId |  |  |  |
+| transactions\[\*\].state |  |  | TODO state mapping |
 
-## API versions 
+See below for the custom fields. 
 
-XXX document to which respective API versions / variants this documentation refers to on both ends. 
-
-
-# API Data mappings
 
 ## commercetools Cart and Order object (mapping to payment interface on payment creation)
 
@@ -107,100 +121,43 @@ XXX document to which respective API versions / variants this documentation refe
 
 FYI: Not all Cart / Order Fields are mentioned here because some are not relevant for the case or have no defined semantics (custom filds / product attributes). 
 
-## commercetools payment object (semantically defined base properties)
 
-* [CT Payment documentation](http://dev.sphere.io/http-api-projects-payments.html#payment)
-
-| CT payment JSON path | TEMPLATE Server API | TEMPLATE Client / redirect API |  Value transform | 
-|---|---|---|---|
-| interfaceId |  |  |  |
-| amountPlanned |  |  |  |
-| amountAuthorized |  |  |  |
-| authorizedUntil |  |  |  |
-| amountPaid |  |  |  |
-| amountRefunded |  |  |  |
-| paymentMethodInfo.paymentInterface |  |  |  |
-| paymentMethodInfo.method |  |  |  |
-| paymentMethodInfo.name.{locale} |  |  |  |
-| paymentStatus.interfaceCode |  |  |  |
-| paymentStatus.interfaceText |  |  |  |
-| paymentStatus.state |  |  |  |
-| transactions\[\*\].timestamp |  |  |  |
-| transactions\[\*\].type |  | TODO type mapping table |  |
-| transactions\[\*\].amount |  |  |  |
-| transactions\[\*\].interactionId |  |  |  |
-
-See below for the custom fields. 
-
-# Payment Methods 
+## Payment Method specific fields of the payment object
 
 XXX this is just a sample. Please take the commercetools custom payment types (per method) from the [method type specifications](../../methods/) in the payment specifications project. 
 
-## CREDIT_CARD
+### CREDIT_CARD
 
-### commercetools payment object transactions
+#### commercetools payment object transaction types
 
- CANCEL_AUTHORIZATION CHARGE REFUND CHARGEBACK
-
-| CT transaction | TEMPLATE equivalent | Notes |
+| CT transaction type | TEMPLATE equivalent | Notes |
 |---|---|---|
-| AUTHORIZATION |  |  |
-| CANCEL_AUTHORIZATION |  |  |
-| CHARGE |  |  |
-| REFUND |  |  |
-| CHARGEBACK |  |  |
+| Authorization |  |  |
+| CancelAuthorization |  |  |
+| Charge |  |  |
+| Refund |  |  |
+| Chargeback |  |  |
 
-### commercetools payment object custom fields
+#### commercetools payment object transaction states
 
-| CT Payment custom property | TEMPLATE Server API | TEMPLATE Client / redirect API | Value transform |
+| CT transaction state | TEMPLATE equivalent | Notes |
+|---|---|---|
+| Pending |  |  |
+| Success |  |  |
+| Failure |  |  |
+
+#### commercetools payment object custom fields
+
+`custom.fields.` has to be prefixed when actually accessing these fields.  
+
+| CT Payment custom property | TEMPLATE Server API | Who is Master? | Value transform |
 |---|---|---|---|
-| foo |  |  |  |
-| foo |  |  |  |
-| foo |  |  |  |
-| foo |  |  |  |
-| foo |  |  |  |
-| foo |  |  |  |
 | foo |  |  |  |
 | foo |  |  |  |
 
 ### DIRECTDEBIT_SEPA
 
-### commercetools payment object transactions
-
-| CT transaction | TEMPLATE equivalent | Notes |
-|---|---|---|
-| CHARGE |  |  |
-| REFUND |  |  |
-| CHARGEBACK |  |  |
-
-### commercetools payment object custom fields
-
-
-| CT Payment custom property | TEMPLATE Server API | TEMPLATE Client / redirect API | Value transform |
-|---|---|---|---|
-| foo |  |  |  |
-| foo |  |  |  |
-| foo |  |  |  |
-| foo |  |  |  |
-| foo |  |  |  |
-| foo |  |  |  |
-| foo |  |  |  |
-| foo |  |  |  |
-
-## Payment interaction objects (PSP specific per interaction type)
-
-### foo 
-
-| CT Payment Interaction custom property | TEMPLATE Server API | TEMPLATE Client / redirect API | Value transform |
-|---|---|---|---|
-| foo |  |  |  |
-| foo |  |  |  |
-| foo |  |  |  |
-| foo |  |  |  |
-| foo |  |  |  |
-| foo |  |  |  |
-| foo |  |  |  |
-| foo |  |  |  |
+XXXX ... analogous to the Credit Card sample above ... 
 
 # Constraint Rules to be implemented by the Integration
 
@@ -209,26 +166,4 @@ XXX list constraints that have to be followed by and integration to create valid
 
 * XXX EXAMPLE "if payment method INSTALLMENT-KLARNA is used, billing address and 
 delivery address must be identical".
-
-
-# Processes
-
-XXX step-by-step descriptions of what has to be done in which order by which part of the integration. 
-
-XXX can consist of links to PSP documentation plus CT specifics. 
-
-## Simplest possible checkout (full page redirect)
-
-foo
-
-## Checkout with embedded fields (redirect only if required by method)
-
-foo
-
-
-
-
-
-
-
 
