@@ -13,16 +13,21 @@ produces:
 paths:
   /commercetools/payments/handle:
     get:
-      summary: Trigger to force handling of a commerceotols payment object. Parameters paymentId and orderId are mutually exclusive.
+      summary: Trigger to force handling of a commerceotols payment object. Parameters paymentId, cartId and orderId are mutually exclusive.
       parameters:
-        - name: paymentId
+        - name: cartId
           in: query
-          description: commercetools id of the payment to be handled. I.e. for standalone payments.
+          description: commercetools id of the Cart whose payment(s) should be handled. Passing the Cart enables a more efficient implementation and is therefore preferable.
           required: false
           type: string
         - name: orderId
           in: query
-          description: commercetools id of the Order whose payment(s) should be handled. Passing the Order enables a more efficient implementation.
+          description: commercetools id of the Order whose payment(s) should be handled. Passing the Order enables a more efficient implementation and is therefore preferable.
+          required: false
+          type: string
+        - name: paymentId
+          in: query
+          description: commercetools id of the payment to be handled. I.e. for standalone payments.
           required: false
           type: string
         - name: version
@@ -71,6 +76,10 @@ definitions:
       status:
         type: string
         description: minimal status description text. The value must not leak any data, it's rather a representation of the HTTP status code.
+      newCartVersion:
+        type: integer
+        format: int32
+        description: the last known version of the Cart Object passed via the cartId parameter. In some situations this can help the frontend implementation save one API call. Implicitly communicates, if something has changed at all.
       newOrderVersion:
         type: integer
         format: int32
@@ -78,7 +87,7 @@ definitions:
       newPaymentVersion:
         type: integer
         format: int32
-        description: the last known version of the Payment Object passed via the paymentId parameter. In some situations this can help the frontend implementation save one API call. Implicitly communicates, if something has changed at all.
+        description: the last known version of the Payment Object passed via the paymentId parameter. If called via orderId and the respective Order references just one Payment, the last version of that payment. Otherwise not set. In some situations this can help the frontend implementation save one API call. Implicitly communicates, if something has changed at all.
   # This Error Object has the same structure as the commercetools API Error Objects. This allows a coherent pattern and maybe some re-use.
   Error:
     type: object
