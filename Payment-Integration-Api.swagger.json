@@ -99,10 +99,20 @@
   "definitions": {
     "PaymentStatus": {
       "type": "object",
-      "description": "minimal status description text. The value must not leak any data, it's rather a representation of the HTTP status code.",
       "properties": {
         "status": {
-          "type": "string"
+          "type": "string",
+          "description": "minimal status description text. The value must not leak any data, it's rather a representation of the HTTP status code."
+        },
+        "newOrderVersion": {
+          "type": "integer",
+          "format": "int32",
+          "description": "the last known version of the Order Object passed via the orderId parameter. In some situations this can help the frontend implementation save one API call. Implicitly communicates, if something has changed at all."
+        },
+        "newPaymentVersion": {
+          "type": "integer",
+          "format": "int32",
+          "description": "the last known version of the Payment Object passed via the paymentId parameter. In some situations this can help the frontend implementation save one API call. Implicitly communicates, if something has changed at all."
         }
       }
     },
