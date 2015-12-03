@@ -49,9 +49,6 @@
             "format": "int32"
           }
         ],
-        "tags": [
-          "Products"
-        ],
         "responses": {
           "200": {
             "description": "Found the Payment and successfully handled changes",
