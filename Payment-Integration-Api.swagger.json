@@ -17,19 +17,19 @@
   "paths": {
     "/commercetools/payments/handle": {
       "get": {
-        "summary": "Trigger to force handling of a commerceotols payment object. Parameters paymentId, cartId and orderId are mutually exclusive.",
+        "summary": "Trigger to force handling of a commerceotols payment object.\nParameters paymentId, cartId and orderId are mutually exclusive.\nPassing the Cart or Order instead of the Payment ID enables a more efficient implementation and is therefore preferable.\n",
         "parameters": [
           {
             "name": "cartId",
             "in": "query",
-            "description": "commercetools id of the Cart whose payment(s) should be handled. Passing the Cart enables a more efficient implementation and is therefore preferable.",
+            "description": "commercetools id of the Cart whose payment(s) should be handled.",
             "required": false,
             "type": "string"
           },
           {
             "name": "orderId",
             "in": "query",
-            "description": "commercetools id of the Order whose payment(s) should be handled. Passing the Order enables a more efficient implementation and is therefore preferable.",
+            "description": "commercetools id of the Order whose payment(s) should be handled.",
             "required": false,
             "type": "string"
           },
@@ -43,7 +43,7 @@
           {
             "name": "version",
             "in": "query",
-            "description": "Optinally last known version of the Payment or Order to be handled",
+            "description": "(Optional) last known version of the Cart, Order or Payment to be handled",
             "required": false,
             "type": "integer",
             "format": "int32"
