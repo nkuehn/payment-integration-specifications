@@ -29,13 +29,18 @@ specialization / variants.
 | CASH |  | Used e.g. for POS purchases |
 | CASH_ADVANCE |  | Cash received in advance before goods are shipped (this is actual Cash, please see BANK_TRANSFER-ADVANCE below for the typical case) |
 | CASH_ON_DELIVERY |  | Delivery Service collects the Money from the buyer. The "PSP" can be directly the delivery service or a wrapper API |
-| INVOICE |  | Goods are paid after delivery based on an invoice. Can be done internally by the merchant or via a third party. which way is determined via the `paymentInterface` field |
+| INVOICE |  | Goods are paid _after_ delivery based on an invoice. Can be done internally by the merchant or via a third party. Use this value if the specific way is encapsulated in the PSP or integration |
+| INVOICE-DIRECT |  | Direct Invoice by the Merchant |
+| INVOICE-KLARNA |  |  |
 | CHECK-ADVANCE |  | Money to be received by merchant in advance via Check / Money Order |
 | DIRECT_DEBIT |  |  |
 | DIRECT_DEBIT-SEPA |  | European Direct Debit System. Formerly called ELV in Germany |
-| INSTALLMENT |  | Can be realized by the merchant or via a 3rd party. Which way is determined via the `paymentInterface` field |
+| INSTALLMENT |  | Can be realized by the merchant or via a 3rd party. Use this value if the selection of method is encapsulated by the PSP |
+| INSTALLMENT-DIRECT |  | Direct Credit Contract with the Merchant |
+| INSTALLMENT-BILLSAFE |  |  |
+| INSTALLMENT-KLARNA |  |  |
 | CREDIT_CARD | Credit Card | Generic Key for any type of Credit Card (recommended, implementation will autodetect specific variant) |
-| CREDIT_CARD-3DSECURE | Credit Card with explicit whish for 3Dsecure check | Will autodetect the card network, but force 3Dsecure check redirect |
+| CREDIT_CARD--3DSECURE | (two dashes!) Credit Card with explicit whish for 3Dsecure check | Will autodetect the card network, but force 3Dsecure check redirect |
 | CREDIT_CARD-MASTERCARD |  | In case explicit restriction to MasterCard is intended |
 | CREDIT_CARD-MASTERCARD-SECURECODE |  | 3Dsecure of MasterCard |
 | CREDIT_CARD-VISA |  |  |
@@ -55,11 +60,12 @@ specialization / variants.
 | WALLET-MONETA | moneta.ru |  |
 | BANK_TRANSFER |  | (probably not used directly) |
 | BANK_TRANSFER-ADVANCE |  | Money received by merchant before delivery via Bank Transfer |
-| BANK_TRANSFER |  |  |
+| BANK_TRANSFER-EPS |  | Austrian eps system www.stuzza.at  |
 | BANK_TRANSFER-GIROPAY |  | A direct debit style system backed by some german banks |
 | BANK_TRANSFER-SOFORTUEBERWEISUNG |  | pay via you online banking system |
 | BANK_TRANSFER-IDEAL |  | Netherlands specific |
-| BANK_TRANSFER-POSTFINANCE |  | Switzerland specific |
+| BANK_TRANSFER-POSTFINANCE_EFINANCE |  | Switzerland specific |
+| BANK_TRANSFER-POSTFINANCE_CARD |  | Switzerland specific |
 |  |  |  |
 |  |  |  |
 |  |  |  |
