@@ -1,9 +1,9 @@
 swagger: '2.0'
 info:
   title: commercetools payment microservice
-  description: Control API of the Integration of the commercetools platform with the payment service FooBar
+  description: Control API of the Integration of the commercetools platform with a Payment Service Provider API
   version: 1.0.0
-host: foo-bar-project-key.payone-payments.commercetools.io
+host: ($projectId).($pspName)-payments.commercetools.io
 schemes:
   - https
   - http
@@ -12,18 +12,22 @@ produces:
   - application/json
 paths:
   /commercetools/payments/handle:
-    # TODO the whole thing could be GET, too. It can change data, so POST better?
-    post:
-      summary: Trigger to force handling of a commerceotols payment object
+    get:
+      summary: Trigger to force handling of a commerceotols payment object. Parameters paymentId and orderId are mutually exclusive.
       parameters:
-        - name: id
+        - name: paymentId
           in: query
-          description: commercetools id of the payment to be handled
-          required: true
+          description: commercetools id of the payment to be handled. I.e. for standalone payments.
+          required: false
+          type: string
+        - name: orderId
+          in: query
+          description: commercetools id of the Order whose payment(s) should be handled. Passing the Order enables a more efficient implementation.
+          required: false
           type: string
         - name: version
           in: query
-          description: Optinally last known version of the payment
+          description: Optinally last known version of the Payment or Order to be handled
           required: false
           type: integer
           format: int32
@@ -56,47 +60,16 @@ paths:
             $ref: '#/definitions/Error'
   /FooBar/listen:
     get:
-      summary: Receives notification / status calls (e.g. webhooks) from the FooBar payment interfaces. Completely custom per payment interface implementation.
+      summary: Receives notification / status calls (e.g. webhooks) from the PSP payment interfaces. Completely custom per payment interface implementation.
       responses:
         default:
-          description: FooBar specific. often just a string "OK".
+          description: PSP specific. often just a string "OK".
 definitions:
   PaymentStatus:
     type: object
-    description: describes the overall status and hints the client what to do next
+    description: minimal status description text. The value must not leak any data, it's rather a representation of the HTTP status code.
     properties:
       status:
-        type: string
-      clientNextAction:
-        type: string
-        description: if set, only the value "redirect" is allowed
-      redirectDefinition:
-        $ref: '#/definitions/HttpRequest'
-  HttpRequest:
-    type: object
-    description: 'description of an HTTP request that has been received or has to be sent'
-    properties:
-      protocol:
-        type: string
-      user:
-        type: string
-      password:
-        type: string
-      host:
-        type: string
-      port:
-        type: integer
-        format: int32
-      queryParams:
-        type: array
-        items:
-          type: object
-          properties:
-            param:
-              type: string
-            value:
-              type: string
-      postData:
         type: string
   Error:
     type: object
