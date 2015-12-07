@@ -15,32 +15,32 @@
     "application/json"
   ],
   "paths": {
-    "/commercetools/handle": {
+    "/commercetools/handle/{resource}/{id}/{version}": {
       "get": {
         "summary": "Trigger to force handling of a commerceotols payment object.\nPassing the Cart or Order instead of the Payment ID enables a more efficient implementation and is therefore preferable.\n",
         "parameters": [
           {
+            "name": "resource",
+            "in": "path",
+            "description": "The resource type the given ID refers to.",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "cart",
+              "order",
+              "payment"
+            ]
+          },
+          {
             "name": "id",
-            "in": "query",
+            "in": "path",
             "description": "commercetools id of the Payment that should be handled or the Cart or Order whose referenced payment(s) should be handled.",
             "required": true,
             "type": "string"
           },
           {
-            "name": "resource",
-            "in": "query",
-            "description": "The resource type the given ID refers to.",
-            "required": true,
-            "type": "string",
-            "enum": [
-              "Cart",
-              "Order",
-              "Payment"
-            ]
-          },
-          {
             "name": "version",
-            "in": "query",
+            "in": "path",
             "description": "last known version of the Cart, Order or Payment to be handled. Version allows more efficient implementation and protects against concurrent modification an not-yet-consistent state of the CT platform.",
             "required": true,
             "type": "integer",
