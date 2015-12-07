@@ -11,7 +11,7 @@ basePath: /api/v1/
 produces:
   - application/json
 paths:
-  /commercetools/handle/{resource}/{id}/{version}:
+  /commercetools/handle/{resource}/{id}:
     get:
       summary: |
         Trigger to force handling of a commerceotols payment object.
@@ -32,7 +32,7 @@ paths:
           required: true
           type: string
         - name: version
-          in: path
+          in: query
           description: last known version of the Cart, Order or Payment to be handled. Version allows more efficient implementation and protects against concurrent modification an not-yet-consistent state of the CT platform.
           required: true
           type: integer
