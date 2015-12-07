@@ -17,7 +17,7 @@
   "paths": {
     "/commercetools/handle/{resource}/{id}": {
       "get": {
-        "summary": "Trigger to force handling of a commerceotols payment object.\nPassing the Cart or Order instead of the Payment ID enables a more efficient implementation and is therefore preferable.\nSituations that are formally valid in commercetools, but are not supported (and dubious anyways):\n1. Cart / Order passed that referenced more than one Payment. Please do separate Calls per Payment and pass Payment id.\n2. Payments that are referenced by more than one Cart or more than one Order\n3. Cart / Order and Payment Resource reference different Customers\n",
+        "summary": "Trigger to force handling of a commerceotols payment object.\nPassing the Cart or Order instead of the Payment ID enables a more efficient implementation and is therefore preferable.\nSituations that are formally valid in commercetools, but are not supported:\n1. Cart / Order passed that referenced more than one Payment. Please do separate Calls per Payment and pass Payment id.\n2. Payments that are referenced by more than one Cart or more than one Order. This is a dubious situation.\n3. Cart / Order and Payment Resource reference different Customers. This is a dubious situation.\n",
         "parameters": [
           {
             "name": "resource",
@@ -26,9 +26,9 @@
             "required": true,
             "type": "string",
             "enum": [
-              "cart",
-              "order",
-              "payment"
+              "carts",
+              "orders",
+              "payments"
             ]
           },
           {

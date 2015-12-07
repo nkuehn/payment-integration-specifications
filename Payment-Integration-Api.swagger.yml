@@ -19,7 +19,7 @@ paths:
         Situations that are formally valid in commercetools, but are not supported:
         1. Cart / Order passed that referenced more than one Payment. Please do separate Calls per Payment and pass Payment id.
         2. Payments that are referenced by more than one Cart or more than one Order. This is a dubious situation.
-        3. Cart / Order and Payment Resource reference different Customers. This is a dubious situation. 
+        3. Cart / Order and Payment Resource reference different Customers. This is a dubious situation.
       parameters:
         - name: resource
           in: path
@@ -27,9 +27,9 @@ paths:
           required: true
           type: string
           enum:
-            - "cart"
-            - "order"
-            - "payment"
+            - "carts"
+            - "orders"
+            - "payments"
         - name: id
           in: path
           description: commercetools id of the Payment that should be handled or the Cart or Order whose referenced payment(s) should be handled.
