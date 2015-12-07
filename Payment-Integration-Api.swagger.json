@@ -15,9 +15,9 @@
     "application/json"
   ],
   "paths": {
-    "/commercetools/handle/{resource}/{id}/{version}": {
+    "/commercetools/handle/{resource}/{id}": {
       "get": {
-        "summary": "Trigger to force handling of a commerceotols payment object.\nPassing the Cart or Order instead of the Payment ID enables a more efficient implementation and is therefore preferable.\n",
+        "summary": "Trigger to force handling of a commerceotols payment object.\nPassing the Cart or Order instead of the Payment ID enables a more efficient implementation and is therefore preferable.\nCart or Order based calls can only be executed if there is exactly one Payment referenced from the Cart/Order. Otherwise\ncall by Payment.  Payments that are referenced by more than one Cart or more than one Order are not handled at all.\n",
         "parameters": [
           {
             "name": "resource",
@@ -39,9 +39,17 @@
             "type": "string"
           },
           {
-            "name": "version",
-            "in": "path",
-            "description": "last known version of the Cart, Order or Payment to be handled. Version allows more efficient implementation and protects against concurrent modification an not-yet-consistent state of the CT platform.",
+            "name": "paymentVersion",
+            "in": "query",
+            "description": "Last known version of the Payment to be handled. Protects against concurrent modification an not-yet-consistent state of the CT platform. Also required of \"handle\" is called via an Order or Cart ID.",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "orderOrCartVersion",
+            "in": "query",
+            "description": "Last known version of the Order to be handled. Protects against concurrent modification an not-yet-consistent state of the CT platform. Applies to the Order if a) handle is called on an Order b) handle is called on a Payment that is already referenced by an Order. Applies to a Cart if a) handle is called on an Order b) handle is called on a Payment that is not yet referenced from an Order, but referenced from a Cart.",
             "required": true,
             "type": "integer",
             "format": "int32"
