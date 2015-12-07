@@ -16,8 +16,10 @@ paths:
       summary: |
         Trigger to force handling of a commerceotols payment object.
         Passing the Cart or Order instead of the Payment ID enables a more efficient implementation and is therefore preferable.
-        Cart or Order based calls can only be executed if there is exactly one Payment referenced from the Cart/Order. Otherwise
-        call by Payment.  Payments that are referenced by more than one Cart or more than one Order are not handled at all.
+        Situations that are formally valid in commercetools, but are not supported (and dubious anyways):
+        1. Cart / Order passed that referenced more than one Payment. Please do separate Calls per Payment and pass Payment id.
+        2. Payments that are referenced by more than one Cart or more than one Order
+        3. Cart / Order and Payment Resource reference different Customers
       parameters:
         - name: resource
           in: path
@@ -43,6 +45,12 @@ paths:
           in: query
           description: Last known version of the Order to be handled. Protects against concurrent modification an not-yet-consistent state of the CT platform. Applies to the Order if a) handle is called on an Order b) handle is called on a Payment that is already referenced by an Order. Applies to a Cart if a) handle is called on an Order b) handle is called on a Payment that is not yet referenced from an Order, but referenced from a Cart.
           required: true
+          type: integer
+          format: int32
+        - name: customerVersion
+          in: query
+          description: Optional last known version of the Customer to be handled. Protects against concurrent modification an not-yet-consistent state of the CT platform. Recommended to pass in non-guest checkouts.
+          required: false
           type: integer
           format: int32
       responses:
@@ -83,6 +91,10 @@ paths:
 definitions:
   PaymentStatus:
     type: object
+    required:
+      - statusCode
+      - message
+      - paymentVersion
     properties:
       statusCode:
         description: The HTTP status code.
@@ -91,21 +103,29 @@ definitions:
       message:
         description: The description text of the Status as defined in this api definition (see responses description).
         type: string
-      newCartVersion:
+      paymentVersion:
         type: integer
         format: int32
-        description: The last known version of the Cart Object passed via the cartId parameter. In some situations this can help the frontend implementation save one API call. Implicitly communicates whether something has changed at all.
-      newOrderVersion:
+        description: the last known version of the Payment Object handled (always the case). Implicitly communicates whether something has changed at all.
+      cartVersion:
         type: integer
         format: int32
-        description: The last known version of the Order Object passed via the orderId parameter. In some situations this can help the frontend implementation save one API call. Implicitly communicates whether something has changed at all.
-      newPaymentVersion:
+        description: The last known version of the Cart Object handled, if so. Implicitly communicates whether something has changed at all.
+      orderVersion:
         type: integer
         format: int32
-        description: the last known version of the Payment Object passed via the paymentId parameter. If called via orderId and the respective Order references just one Payment, the last version of that payment. Otherwise not set. In some situations this can help the frontend implementation save one API call. Implicitly communicates whether something has changed at all.
+        description: The last known version of the Order Object handled, if so. Implicitly communicates whether something has changed at all.
+      customerVersion:
+        type: integer
+        format: int32
+        description: The last known version of the Order Object handled, if so. Implicitly communicates whether something has changed at all.
   Error:
     # This Error Object has the same structure as the commercetools API Error Objects. This allows a coherent pattern and maybe some re-use. See http://dev.commercetools.com/http-api-errors.html#error-responses
     type: object
+    required:
+      - statusCode
+      - message
+      - errors
     properties:
       statusCode:
         description: The HTTP status code of the overall error situation. Must be equal to the actual HTTP status code sent.
