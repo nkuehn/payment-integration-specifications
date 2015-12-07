@@ -15,7 +15,7 @@
     "application/json"
   ],
   "paths": {
-    "/commercetools/payments/handle": {
+    "/commercetools/handle": {
       "get": {
         "summary": "Trigger to force handling of a commerceotols payment object.\nPassing the Cart or Order instead of the Payment ID enables a more efficient implementation and is therefore preferable.\n",
         "parameters": [
@@ -49,31 +49,31 @@
         ],
         "responses": {
           "200": {
-            "description": "Found the Payment and successfully handled changes",
+            "description": "Found the resource and successfully handled it.",
             "schema": {
               "$ref": "#/definitions/PaymentStatus"
             }
           },
           "202": {
-            "description": "Found the Payment, but the payment API could not immediately complete the necessary actions. Please try again later with the identical request.",
+            "description": "Found the resource, but the payment API could not immediately complete the necessary actions. Please try again later with the identical request.",
             "schema": {
               "$ref": "#/definitions/PaymentStatus"
             }
           },
           "403": {
-            "description": "The configuration of the service does not allow this request (e.g. not on optional IP whitelist, optional required authentication not passed etc.).",
+            "description": "The configuration of the service does not allow this request (e.g. not on optional IP whitelist, optional required authentication not passed).",
             "schema": {
               "$ref": "#/definitions/Error"
             }
           },
           "404": {
-            "description": "Given Payment could not be found.",
+            "description": "Given resource could not be found.",
             "schema": {
               "$ref": "#/definitions/Error"
             }
           },
           "409": {
-            "description": "Given Payment does not have the given version yet (platform not yet consistent) or any more (concurrent modification). The service can choose to retry in the former case.",
+            "description": "The given resource does not have the given version yet (platform not yet consistent) or any more (concurrent modification).",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -102,9 +102,14 @@
     "PaymentStatus": {
       "type": "object",
       "properties": {
-        "status": {
-          "type": "string",
-          "description": "minimal status description text. The value must not leak any data, it's rather a representation of the HTTP status code."
+        "statusCode": {
+          "description": "the HTTP status code.",
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "description": "the description text of the Status as defined in this api definition (see responses description)",
+          "type": "string"
         },
         "newCartVersion": {
           "type": "integer",

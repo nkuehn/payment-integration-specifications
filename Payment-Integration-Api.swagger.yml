@@ -11,7 +11,7 @@ basePath: /api/v1/
 produces:
   - application/json
 paths:
-  /commercetools/payments/handle:
+  /commercetools/handle:
     get:
       summary: |
         Trigger to force handling of a commerceotols payment object.
@@ -39,23 +39,23 @@ paths:
           format: int32
       responses:
         '200':
-          description: Found the Payment and successfully handled changes
+          description: Found the resource and successfully handled it.
           schema:
             $ref: '#/definitions/PaymentStatus'
         '202':
-          description: Found the Payment, but the payment API could not immediately complete the necessary actions. Please try again later with the identical request.
+          description: Found the resource, but the payment API could not immediately complete the necessary actions. Please try again later with the identical request.
           schema:
             $ref: '#/definitions/PaymentStatus'
         '403':
-          description: The configuration of the service does not allow this request (e.g. not on optional IP whitelist, optional required authentication not passed etc.).
+          description: The configuration of the service does not allow this request (e.g. not on optional IP whitelist, optional required authentication not passed).
           schema:
             $ref: '#/definitions/Error'
         '404':
-          description: Given Payment could not be found.
+          description: Given resource could not be found.
           schema:
             $ref: '#/definitions/Error'
         '409':
-          description: Given Payment does not have the given version yet (platform not yet consistent) or any more (concurrent modification). The service can choose to retry in the former case.
+          description: The given resource does not have the given version yet (platform not yet consistent) or any more (concurrent modification).
           schema:
             $ref: '#/definitions/Error'
         default:
@@ -67,26 +67,30 @@ paths:
       summary: Receives notification / status calls (e.g. webhooks) from the PSP payment interfaces. Completely custom per payment interface implementation.
       responses:
         default:
-          description: PSP specific. often just a string "OK".
+          description: PSP specific. Often just a string "OK".
 definitions:
   PaymentStatus:
     type: object
     properties:
-      status:
+      statusCode:
+        description: The HTTP status code.
+        type: integer
+        format: int32
+      message:
+        description: The description text of the Status as defined in this api definition (see responses description).
         type: string
-        description: minimal status description text. The value must not leak any data, it's rather a representation of the HTTP status code.
       newCartVersion:
         type: integer
         format: int32
-        description: the last known version of the Cart Object passed via the cartId parameter. In some situations this can help the frontend implementation save one API call. Implicitly communicates, if something has changed at all.
+        description: The last known version of the Cart Object passed via the cartId parameter. In some situations this can help the frontend implementation save one API call. Implicitly communicates whether something has changed at all.
       newOrderVersion:
         type: integer
         format: int32
-        description: the last known version of the Order Object passed via the orderId parameter. In some situations this can help the frontend implementation save one API call. Implicitly communicates, if something has changed at all.
+        description: The last known version of the Order Object passed via the orderId parameter. In some situations this can help the frontend implementation save one API call. Implicitly communicates whether something has changed at all.
       newPaymentVersion:
         type: integer
         format: int32
-        description: the last known version of the Payment Object passed via the paymentId parameter. If called via orderId and the respective Order references just one Payment, the last version of that payment. Otherwise not set. In some situations this can help the frontend implementation save one API call. Implicitly communicates, if something has changed at all.
+        description: the last known version of the Payment Object passed via the paymentId parameter. If called via orderId and the respective Order references just one Payment, the last version of that payment. Otherwise not set. In some situations this can help the frontend implementation save one API call. Implicitly communicates whether something has changed at all.
   # This Error Object has the same structure as the commercetools API Error Objects. This allows a coherent pattern and maybe some re-use.
   Error:
     type: object
