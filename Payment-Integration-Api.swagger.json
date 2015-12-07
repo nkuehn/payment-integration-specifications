@@ -60,6 +60,12 @@
               "$ref": "#/definitions/PaymentStatus"
             }
           },
+          "400": {
+            "description": "One of a) This service is not responsible for the payment interface mentioned in the given payment resource. This service is responsible for the PAYONE interface only. b) (reserved for future cases)",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
           "403": {
             "description": "The configuration of the service does not allow this request (e.g. not on optional IP whitelist, optional required authentication not passed).",
             "schema": {
@@ -92,7 +98,7 @@
         "summary": "Receives notification / status calls (e.g. webhooks) from the PSP payment interfaces. Completely custom per payment interface implementation.",
         "responses": {
           "default": {
-            "description": "PSP specific. often just a string \"OK\"."
+            "description": "PSP specific. Often just a string \"OK\"."
           }
         }
       }
@@ -103,28 +109,28 @@
       "type": "object",
       "properties": {
         "statusCode": {
-          "description": "the HTTP status code.",
+          "description": "The HTTP status code.",
           "type": "integer",
           "format": "int32"
         },
         "message": {
-          "description": "the description text of the Status as defined in this api definition (see responses description)",
+          "description": "The description text of the Status as defined in this api definition (see responses description).",
           "type": "string"
         },
         "newCartVersion": {
           "type": "integer",
           "format": "int32",
-          "description": "the last known version of the Cart Object passed via the cartId parameter. In some situations this can help the frontend implementation save one API call. Implicitly communicates, if something has changed at all."
+          "description": "The last known version of the Cart Object passed via the cartId parameter. In some situations this can help the frontend implementation save one API call. Implicitly communicates whether something has changed at all."
         },
         "newOrderVersion": {
           "type": "integer",
           "format": "int32",
-          "description": "the last known version of the Order Object passed via the orderId parameter. In some situations this can help the frontend implementation save one API call. Implicitly communicates, if something has changed at all."
+          "description": "The last known version of the Order Object passed via the orderId parameter. In some situations this can help the frontend implementation save one API call. Implicitly communicates whether something has changed at all."
         },
         "newPaymentVersion": {
           "type": "integer",
           "format": "int32",
-          "description": "the last known version of the Payment Object passed via the paymentId parameter. If called via orderId and the respective Order references just one Payment, the last version of that payment. Otherwise not set. In some situations this can help the frontend implementation save one API call. Implicitly communicates, if something has changed at all."
+          "description": "the last known version of the Payment Object passed via the paymentId parameter. If called via orderId and the respective Order references just one Payment, the last version of that payment. Otherwise not set. In some situations this can help the frontend implementation save one API call. Implicitly communicates whether something has changed at all."
         }
       }
     },
@@ -132,21 +138,26 @@
       "type": "object",
       "properties": {
         "statusCode": {
+          "description": "The HTTP status code of the overall error situation. Must be equal to the actual HTTP status code sent.",
           "type": "integer",
           "format": "int32"
         },
         "message": {
+          "description": "The description of the first error in the \"errors\" list.",
           "type": "string"
         },
         "errors": {
+          "description": "The full list of errors that have occurred during processing the API request.",
           "type": "array",
           "items": {
             "type": "object",
             "properties": {
               "code": {
+                "description": "a free to choose error code for the specific situation.",
                 "type": "string"
               },
               "message": {
+                "description": "a matching free text description of the error.  Please be aware that passing error Information from the backend APIs may leak information.",
                 "type": "string"
               }
             }
