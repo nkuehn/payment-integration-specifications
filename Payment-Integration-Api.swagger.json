@@ -5,46 +5,44 @@
     "description": "Control API of the Integration of the commercetools platform with a Payment Service Provider API",
     "version": "1.0.0"
   },
-  "host": "($projectId).($pspName)-payments.commercetools.io",
+  "host": "(projectId).(pspName)-payments.commercetools.io",
   "schemes": [
     "https",
     "http"
   ],
-  "basePath": "/api",
+  "basePath": "/api/v1/",
   "produces": [
     "application/json"
   ],
   "paths": {
     "/commercetools/payments/handle": {
       "get": {
-        "summary": "Trigger to force handling of a commerceotols payment object.\nParameters paymentId, cartId and orderId are mutually exclusive.\nPassing the Cart or Order instead of the Payment ID enables a more efficient implementation and is therefore preferable.\n",
+        "summary": "Trigger to force handling of a commerceotols payment object.\nPassing the Cart or Order instead of the Payment ID enables a more efficient implementation and is therefore preferable.\n",
         "parameters": [
           {
-            "name": "cartId",
+            "name": "id",
             "in": "query",
-            "description": "commercetools id of the Cart whose payment(s) should be handled.",
-            "required": false,
+            "description": "commercetools id of the Payment that should be handled or the Cart or Order whose referenced payment(s) should be handled.",
+            "required": true,
             "type": "string"
           },
           {
-            "name": "orderId",
+            "name": "resource",
             "in": "query",
-            "description": "commercetools id of the Order whose payment(s) should be handled.",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "paymentId",
-            "in": "query",
-            "description": "commercetools id of the payment to be handled. I.e. for standalone payments.",
-            "required": false,
-            "type": "string"
+            "description": "The resource type the given ID refers to.",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "Cart",
+              "Order",
+              "Payment"
+            ]
           },
           {
             "name": "version",
             "in": "query",
-            "description": "(Optional) last known version of the Cart, Order or Payment to be handled",
-            "required": false,
+            "description": "last known version of the Cart, Order or Payment to be handled. Version allows more efficient implementation and protects against concurrent modification an not-yet-consistent state of the CT platform.",
+            "required": true,
             "type": "integer",
             "format": "int32"
           }
@@ -75,7 +73,7 @@
             }
           },
           "409": {
-            "description": "Given Payment does not have the optionally given version any more.",
+            "description": "Given Payment does not have the given version yet (platform not yet consistent) or any more (concurrent modification). The service can choose to retry in the former case.",
             "schema": {
               "$ref": "#/definitions/Error"
             }
