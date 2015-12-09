@@ -129,6 +129,23 @@
           "description": "The description text of the Status as defined in this api definition (see responses description).",
           "type": "string"
         },
+        "lastTransactionState": {
+          "description": "The value of the `state` field of the last Transaction in the handled Payment",
+          "type": "string",
+          "enum": [
+            "Pending",
+            "Success",
+            "Failure"
+          ]
+        },
+        "redirectUrl": {
+          "description": "if the property is set, redirect to that URL. The success / cancel / error URLs are set in the Payment Resource.",
+          "type": "string"
+        },
+        "paymentResource": {
+          "description": "the complete commercetools payment object. Only returned if the client is authorized in some implementation specific way.",
+          "type": "object"
+        },
         "cartVersion": {
           "type": "integer",
           "format": "int32",

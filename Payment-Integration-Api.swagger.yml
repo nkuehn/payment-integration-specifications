@@ -35,6 +35,7 @@ paths:
           description: commercetools id of the Payment that should be handled or the Cart or Order whose referenced payment(s) should be handled.
           required: true
           type: string
+        # the following two can be removed if the decision is taken to guarantee consistency on Carts and Customers, too.
         - name: cartVersion
           in: query
           description: Optional last known version of the Cart to be handled. Protects against concurrent modification an not-yet-consistent state of the CT platform.
@@ -96,6 +97,21 @@ definitions:
       message:
         description: The description text of the Status as defined in this api definition (see responses description).
         type: string
+      lastTransactionState:
+        description: The value of the `state` field of the last Transaction in the handled Payment
+        type: string
+        enum:
+          - "Pending"
+          - "Success"
+          - "Failure"
+      redirectUrl:
+        description: if the property is set, redirect to that URL. The success / cancel / error URLs are set in the Payment Resource.
+        type: string
+      paymentResource:
+        description: the complete commercetools payment object. Only returned if the client is authorized in some implementation specific way.
+        type: object
+        # TODO swagger does not support "wildcard" free json and since 2.0 does not allow external JSON schema references any more.  So this is just empty in the definiton.
+      # the following two can be removed if the decision is taken to guarantee consistency on Carts and Customers, too.
       cartVersion:
         type: integer
         format: int32
