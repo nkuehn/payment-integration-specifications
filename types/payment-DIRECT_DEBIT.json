@@ -1,0 +1,167 @@
+{
+  "key": "payment-DIRECT_DEBIT",
+  "name": {
+    "en": "CTP Standard Direct Debit Payment Resource"
+  },
+  "description": {
+    "en": "extends the CTP Payment Resource with the standard fields for a direct debit payment.\nSupports traditional adressing but only IBAN+BIC must be supported by all integrations\n"
+  },
+  "resourceTypeIds": [
+    "payment"
+  ],
+  "fieldDefinitions": [
+    {
+      "name": "languageCode",
+      "type": {
+        "name": "String"
+      },
+      "label": {
+        "en": "Hint to the PSP integration service, which language to take from CTP LString / LEnum data. ISO language code."
+      },
+      "required": true,
+      "inputHint": "SingleLine"
+    },
+    {
+      "name": "reference",
+      "type": {
+        "name": "String"
+      },
+      "label": {
+        "en": "Short reference code to appear as first item in the client's bank account. Must be unique across all payments with the given PSP. Should be globally unique."
+      },
+      "required": true,
+      "inputHint": "SingleLine"
+    },
+    {
+      "name": "accountHolderName",
+      "type": {
+        "name": "String"
+      },
+      "label": {
+        "en": "Full Name of the Bank Account Holder"
+      },
+      "required": false,
+      "inputHint": "SingleLine"
+    },
+    {
+      "name": "referenceText",
+      "type": {
+        "name": "String"
+      },
+      "label": {
+        "en": "Text to appear in the bank account statement in addition to the reference ID which defaults to the Order Number"
+      },
+      "required": false,
+      "inputHint": "MultiLine"
+    },
+    {
+      "name": "executionTime",
+      "type": {
+        "name": "DateTime"
+      },
+      "label": {
+        "en": "Optional future execution time of the direct debit. Not guaranteed to be supported by all PSP API integrations."
+      },
+      "required": false
+    },
+    {
+      "name": "IBAN",
+      "type": {
+        "name": "String"
+      },
+      "label": {
+        "en": "Full machine-read formatted IBAN (i.e. no spaces or separators)."
+      },
+      "required": false,
+      "inputHint": "SingleLine"
+    },
+    {
+      "name": "BIC",
+      "type": {
+        "name": "String"
+      },
+      "label": {
+        "en": "Full BIC (no spaces or separators)."
+      },
+      "required": false,
+      "inputHint": "SingleLine"
+    },
+    {
+      "name": "bankCountry",
+      "type": {
+        "name": "String"
+      },
+      "label": {
+        "en": "ISO 2-letter country code."
+      },
+      "required": false,
+      "inputHint": "SingleLine"
+    },
+    {
+      "name": "bankCode",
+      "type": {
+        "name": "String"
+      },
+      "label": {
+        "en": "Legacy Bank Code as conventional in the respective country (e.g. traditional BLZ in Germany)."
+      },
+      "required": false,
+      "inputHint": "SingleLine"
+    },
+    {
+      "name": "bankBranchCode",
+      "type": {
+        "name": "String"
+      },
+      "label": {
+        "en": "Legacy Bank Branch Code as conventional in the respective country. Known to be necessary in FR, ES, FI, IT among others."
+      },
+      "required": false,
+      "inputHint": "SingleLine"
+    },
+    {
+      "name": "bankAccount",
+      "type": {
+        "name": "String"
+      },
+      "label": {
+        "en": "Legacy Bank Account as conventional in the respective country."
+      },
+      "required": false,
+      "inputHint": "SingleLine"
+    },
+    {
+      "name": "bankDataCheckDigit",
+      "type": {
+        "name": "String"
+      },
+      "label": {
+        "en": "Legacy Check Digit as conventional in the respective country. Known to be necessary in FR and BE among others."
+      },
+      "required": false,
+      "inputHint": "SingleLine"
+    },
+    {
+      "name": "sepaMandateId",
+      "type": {
+        "name": "String"
+      },
+      "label": {
+        "en": "SEPA Mandate ID. Field can be used to optionally pre-set the Mandate ID if the Merchant has these capabilities. Filled with the actual mandate ID from PSP API. Not supported by all PSPs."
+      },
+      "required": false,
+      "inputHint": "SingleLine"
+    },
+    {
+      "name": "sepaMandateDate",
+      "type": {
+        "name": "Date"
+      },
+      "label": {
+        "en": "SEPA Mandate Signature Date. Fed back from the PSP. Not supported by all PSP implementations."
+      },
+      "required": false,
+      "inputHint": "SingleLine"
+    }
+  ]
+}
