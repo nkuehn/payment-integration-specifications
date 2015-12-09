@@ -39,18 +39,10 @@
             "type": "string"
           },
           {
-            "name": "paymentVersion",
+            "name": "cartVersion",
             "in": "query",
-            "description": "Last known version of the Payment to be handled. Protects against concurrent modification an not-yet-consistent state of the CT platform. Also required of \"handle\" is called via an Order or Cart ID.",
-            "required": true,
-            "type": "integer",
-            "format": "int32"
-          },
-          {
-            "name": "orderOrCartVersion",
-            "in": "query",
-            "description": "Last known version of the Order to be handled. Protects against concurrent modification an not-yet-consistent state of the CT platform. Applies to the Order if a) handle is called on an Order b) handle is called on a Payment that is already referenced by an Order. Applies to a Cart if a) handle is called on an Order b) handle is called on a Payment that is not yet referenced from an Order, but referenced from a Cart.",
-            "required": true,
+            "description": "Optional last known version of the Cart to be handled. Protects against concurrent modification an not-yet-consistent state of the CT platform.",
+            "required": false,
             "type": "integer",
             "format": "int32"
           },
@@ -125,8 +117,7 @@
       "type": "object",
       "required": [
         "statusCode",
-        "message",
-        "paymentVersion"
+        "message"
       ],
       "properties": {
         "statusCode": {
@@ -138,20 +129,10 @@
           "description": "The description text of the Status as defined in this api definition (see responses description).",
           "type": "string"
         },
-        "paymentVersion": {
-          "type": "integer",
-          "format": "int32",
-          "description": "the last known version of the Payment Object handled (always the case). Implicitly communicates whether something has changed at all."
-        },
         "cartVersion": {
           "type": "integer",
           "format": "int32",
           "description": "The last known version of the Cart Object handled, if so. Implicitly communicates whether something has changed at all."
-        },
-        "orderVersion": {
-          "type": "integer",
-          "format": "int32",
-          "description": "The last known version of the Order Object handled, if so. Implicitly communicates whether something has changed at all."
         },
         "customerVersion": {
           "type": "integer",
