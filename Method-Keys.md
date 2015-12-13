@@ -55,7 +55,6 @@ specialization / variants.
 | DEBIT_CARD-CARTE_BLEUE |  |  |
 | CREDIT |  | (never directly used) |
 | WALLET-PAYPAL | PayPal | The PayPal Wallet |
-| WALLET-PAYPAL | PayPal | The PayPal Wallet |
 | WALLET-SKRILL | Skrill Digital Wallet |  |
 | WALLET-MONETA | moneta.ru |  |
 | BANK_TRANSFER |  | (probably not used directly) |
