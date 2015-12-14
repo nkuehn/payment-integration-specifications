@@ -23,7 +23,18 @@ fieldDefinitions:
       en: Short reference code to appear as first item in the client's bank account. Must be unique across all payments with the given PSP. Should be globally unique.
     required: true
     inputHint: SingleLine
+  # Fields that apply to all Payment Methods that allow a long description visible to the buyer
+  -
+    name: referenceText
+    type:
+      name: String
+    label:
+      en: Text to appear in the credit card statement in addition to the reference ID which defaults to the Order Number
+    required: false
+    inputHint: MultiLine
+
   # Fields that all payment methods with a redirect flow need (must be identical across all payment methods):
+  # (Credit Card goes into redirect when 3dsecure type security features are enabled)
   -
     name: redirectUrl
     type:

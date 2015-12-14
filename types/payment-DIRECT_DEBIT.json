@@ -33,17 +33,6 @@
       "inputHint": "SingleLine"
     },
     {
-      "name": "accountHolderName",
-      "type": {
-        "name": "String"
-      },
-      "label": {
-        "en": "Full Name of the Bank Account Holder"
-      },
-      "required": false,
-      "inputHint": "SingleLine"
-    },
-    {
       "name": "referenceText",
       "type": {
         "name": "String"
@@ -53,6 +42,17 @@
       },
       "required": false,
       "inputHint": "MultiLine"
+    },
+    {
+      "name": "accountHolderName",
+      "type": {
+        "name": "String"
+      },
+      "label": {
+        "en": "Full Name of the Bank Account Holder"
+      },
+      "required": false,
+      "inputHint": "SingleLine"
     },
     {
       "name": "executionTime",

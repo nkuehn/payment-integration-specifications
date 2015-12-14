@@ -33,6 +33,17 @@
       "inputHint": "SingleLine"
     },
     {
+      "name": "referenceText",
+      "type": {
+        "name": "String"
+      },
+      "label": {
+        "en": "Text to appear in the credit card statement in addition to the reference ID which defaults to the Order Number"
+      },
+      "required": false,
+      "inputHint": "MultiLine"
+    },
+    {
       "name": "redirectUrl",
       "type": {
         "name": "String"
