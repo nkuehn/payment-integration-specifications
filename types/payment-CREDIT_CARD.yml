@@ -1,17 +1,108 @@
 key: payment-CREDIT_CARD
-name: Credit Card Payment Resource
+name:
+  en: Credit Card Payment Resource
 description:
-  en: extends the CTP Payment Resource with the standard fields for a Credit Card payment. NEVER store Credit Card Data that fall under PCI DSS compliance in the commercetools platform.
+  en: extends the CTP Payment Resource with the standard fields for a Credit Card payment. NEVER store Credit Card Data that fall under PCI DSS compliance in the commercetools platform. Always use the `cardDataPlaceholder` field to store the placeholder / token / id you have received from the direct communication of the browser with the PSP.
 resourceTypeIds:
   - payment
 fieldDefinitions:
-  # A Reference ID / Hash / Token to the Credit Card Data that have been dircetly posted to the Payment API (PCI compliance)
+  # Fields that all payment methods need (candidates to become a built-in):
   -
+    name: languageCode
     type:
       name: String
-    name: creditCardDataReference
     label:
-      -
-        en: Anonymized Credit Card Data Reference
+      en: Hint to the PSP integration service, which language to take from CTP LString / LEnum data. ISO language code.
+    required: true
+    inputHint: SingleLine
+  -
+    name: reference
+    type:
+      name: String
+    label:
+      en: Short reference code to appear as first item in the client's bank account. Must be unique across all payments with the given PSP. Should be globally unique.
+    required: true
+    inputHint: SingleLine
+  # Fields that all payment methods with a redirect flow need (must be identical across all payment methods):
+  -
+    name: redirectUrl
+    type:
+      name: String
+    label:
+      en: Redirect URL passed from the PSP integration to the frontend.  If this field is set, it represents an instruction to the client implememtation to immediately redirect the User to the given place. Can / should be removed when the user hits the succes / error / cancel URLs.
     required: false
     inputHint: SingleLine
+  -
+    name: successUrl
+    type:
+      name: String
+    label:
+      en: Absolute URL set by the checkout client implementation that tells the PSP where to direct the Client after the steps in a redirect flow have been completed successfully.
+    required: false
+    inputHint: SingleLine
+  -
+    name: errorUrl
+    type:
+      name: String
+    label:
+      en: Absolute URL set by the checkout client implementation that tells the PSP where to direct the Client when a technical error has happened or the transaction has been denied in a redirect flow.
+    required: false
+    inputHint: SingleLine
+  -
+    name: cancelUrl
+    type:
+      name: String
+    label:
+      en: Absolute URL set by the checkout client implementation that tells the PSP where to direct the Client when the client has used a function in the redirect flow that cancels the process.
+    required: false
+    inputHint: SingleLine
+  # Credit Card Specific Fields: general process
+  -
+    name: force3DSecure
+    type:
+      name: Boolean
+    label:
+      en: Advises the PSP API to do a 3dsecure cross-check independently of whether that is implied in the payment method key or already preconfigured in the PSP backend.
+    required: false
+  -
+    name: cardDataPlaceholder
+    type:
+      name: String
+    label:
+      en: After having submitted the actual Credit Card data directly from the User Agent to the PSP API, most APIs return a placeholder id / token / key / number for the data. If the information is not implicit in another field (e.g. the interfaceId of the payment) this value has to be set here. DO NOT WRITE ACTUAL CREDIT CARD DATA.
+    required: false
+    inputHint: SingleLine
+  # PCI-Neutral Credit Card Placeholder Data (returned from the PSP API, do not generate yourself)
+  -
+    name: truncatedCardNumber
+    type:
+      name: String
+    label:
+      en: Some Payment APIs return an anonymized version of the credit card number that is allowed to be saved to be shown to the buyer to ease the buyer's memory what card has been used to pay.  This is to be set here. It is a bad Idea to generate anonymized numbers yourself, because that implies you are "touching" the raw number which leads to PCI compliance issues.
+    required: false
+    inputHint: SingleLine
+  -
+    name: cardHolderName
+    type:
+      name: String
+    label:
+      en: The name of the Card Holder as given on the card.
+    required: false
+    inputHint: SingleLine
+  -
+    name: cardExpiryDate
+    type:
+      name: Date
+    label:
+      en: Card expiry date. As Card expiry dates are months only, the day set here is considered a no-information.  If this field is inteded to be used semantically, the last day of the expiration month of the card should be used.
+    required: false
+  -
+    name: cardNetwork
+    type:
+      name: String
+    label:
+      en: Name of the Card Network (e.g. MasterCard, VISA, etc.)
+    required: false
+    inputHint: SingleLine
+
+
