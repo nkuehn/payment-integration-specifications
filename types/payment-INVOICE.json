@@ -4,7 +4,7 @@
     "en": "General Payment Type for Invoice Payment"
   },
   "description": {
-    "en": "extends the CTP Payment Resource with the standard fields for direct invoice (goods first) payments to the merchant.\nDifferent from Cash Advance payments (money first). Differs from Risk-Managed Invoicing Services like Klarna.\nNear Identical to CASH_ADVANCE, but with some extra fields.\n"
+    "en": "extends the CTP Payment Resource with the standard fields for Invoice (goods first) payments to the merchant.\nDifferent from Cash Advance payments (money first). Differs from Risk-Managed Invoicing Services like Klarna.\nNear Identical to CASH_ADVANCE, but with some extra fields.\n"
   },
   "resourceTypeIds": [
     "payment"
