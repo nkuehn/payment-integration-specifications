@@ -1,10 +1,10 @@
 {
-  "key": "payment-WALLET-PAYPAL",
+  "key": "payment-WALLET",
   "name": {
-    "en": "CTP Standard PayPal Wallet Payment Resource"
+    "en": "CTP Standard Payment Resource for Wallets like PayPal"
   },
   "description": {
-    "en": "extends the CTP Payment Resource with the standard fields for a PayPal Payment."
+    "en": "extends the CTP Payment Resource with minimalistic standard fields for a Wallet Payment with redirect checkout."
   },
   "resourceTypeIds": [
     "payment"
@@ -38,7 +38,7 @@
         "name": "String"
       },
       "label": {
-        "en": "Text to appear in the account or credit card statement as well as the paypal wallet account in addition to the reference ID which defaults to the Order Number"
+        "en": "Text to appear in the account or credit card statement as well as the wallet account in addition to the reference ID which defaults to the Order Number"
       },
       "required": false,
       "inputHint": "MultiLine"
