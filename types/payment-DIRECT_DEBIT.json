@@ -44,6 +44,16 @@
       "inputHint": "MultiLine"
     },
     {
+      "name": "executionTime",
+      "type": {
+        "name": "DateTime"
+      },
+      "label": {
+        "en": "Optional future execution time of the direct debit. Not guaranteed to be supported by all PSP API integrations."
+      },
+      "required": false
+    },
+    {
       "name": "accountHolderName",
       "type": {
         "name": "String"
@@ -53,16 +63,6 @@
       },
       "required": false,
       "inputHint": "SingleLine"
-    },
-    {
-      "name": "executionTime",
-      "type": {
-        "name": "DateTime"
-      },
-      "label": {
-        "en": "Optional future execution time of the direct debit. Not guaranteed to be supported by all PSP API integrations."
-      },
-      "required": false
     },
     {
       "name": "IBAN",

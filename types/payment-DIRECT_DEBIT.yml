@@ -36,14 +36,6 @@ fieldDefinitions:
     inputHint: MultiLine
   # General Fields for direct debit:
   -
-    name: accountHolderName
-    type:
-      name: String
-    label:
-      en: Full Name of the Bank Account Holder
-    required: false
-    inputHint: SingleLine
-  -
     name: executionTime
     type:
       name: DateTime
@@ -51,6 +43,14 @@ fieldDefinitions:
       en: Optional future execution time of the direct debit. Not guaranteed to be supported by all PSP API integrations.
     required: false
   # Modern Bank Account Identification:
+  -
+    name: accountHolderName
+    type:
+      name: String
+    label:
+      en: Full Name of the Bank Account Holder
+    required: false
+    inputHint: SingleLine
   -
     name: IBAN
     type:
