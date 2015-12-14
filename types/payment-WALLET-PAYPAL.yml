@@ -1,0 +1,34 @@
+key: payment-WALLET-PAYPAL
+name:
+  en: CTP Standard PayPal Wallet Payment Resource
+description:
+  en: extends the CTP Payment Resource with the standard fields for a PayPal Payment. 
+resourceTypeIds:
+  - payment
+fieldDefinitions:
+  # Fields that all payment methods need (candidates to become a built-in):
+  -
+    name: languageCode
+    type:
+      name: String
+    label:
+      en: Hint to the PSP integration service, which language to take from CTP LString / LEnum data. ISO language code.
+    required: true
+    inputHint: SingleLine
+  -
+    name: reference
+    type:
+      name: String
+    label:
+      en: Short reference code to appear as first item in the client's bank account. Must be unique across all payments with the given PSP. Should be globally unique.
+    required: true
+    inputHint: SingleLine
+  # Fields that apply to all Payment Methods that allow a long description visible to the buyer
+  -
+    name: referenceText
+    type:
+      name: String
+    label:
+      en: Text to appear in the account or credit card statement as well as the paypal wallet account in addition to the reference ID which defaults to the Order Number
+    required: false
+    inputHint: MultiLine
