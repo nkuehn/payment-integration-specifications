@@ -38,7 +38,7 @@
         "name": "String"
       },
       "label": {
-        "en": "Full Name of the Bank Account Holder"
+        "en": "Full Name of the Bank Account Holder the amount was paid from."
       },
       "required": false,
       "inputHint": "SingleLine"
@@ -49,7 +49,7 @@
         "name": "String"
       },
       "label": {
-        "en": "Full machine-read formatted IBAN (i.e. no spaces or separators)."
+        "en": "Full machine-read formatted (i.e. no spaces or separators) IBAN the amount was paid from."
       },
       "required": false,
       "inputHint": "SingleLine"
@@ -60,7 +60,7 @@
         "name": "String"
       },
       "label": {
-        "en": "Full BIC (no spaces or separators)."
+        "en": "Full BIC (no spaces or separators) the amount was paid from."
       },
       "required": false,
       "inputHint": "SingleLine"
@@ -71,7 +71,7 @@
         "name": "String"
       },
       "label": {
-        "en": "Full Name of the Bank Account Holder"
+        "en": "Full Name of the Bank Account Holder to refund to."
       },
       "required": false,
       "inputHint": "SingleLine"
@@ -82,7 +82,7 @@
         "name": "String"
       },
       "label": {
-        "en": "Full machine-read formatted IBAN (i.e. no spaces or separators)."
+        "en": "Full machine-read formatted IBAN to refund to (i.e. no spaces or separators)."
       },
       "required": false,
       "inputHint": "SingleLine"
@@ -93,7 +93,7 @@
         "name": "String"
       },
       "label": {
-        "en": "Full BIC (no spaces or separators)."
+        "en": "Full BIC to refund to (no spaces or separators)."
       },
       "required": false,
       "inputHint": "SingleLine"
