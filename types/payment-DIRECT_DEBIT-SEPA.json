@@ -1,10 +1,10 @@
 {
-  "key": "payment-DIRECT_DEBIT",
+  "key": "payment-DIRECT_DEBIT-SEPA",
   "name": {
-    "en": "CTP Standard Direct Debit Payment Resource"
+    "en": "CTP Standard SEPA Direct Debit Payment Resource"
   },
   "description": {
-    "en": "extends the CTP Payment Resource with the standard fields for a direct debit payment.\nSupports traditional adressing but only IBAN+BIC must be supported by all integrations\n"
+    "en": "extends the CTP Payment Resource with the standard fields for a direct debit payment in the single european payments area.\nSupports traditional adressing but only IBAN+BIC must be supported by all integrations\n"
   },
   "resourceTypeIds": [
     "payment"
