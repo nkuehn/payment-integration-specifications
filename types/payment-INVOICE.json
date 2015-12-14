@@ -106,8 +106,7 @@
       "label": {
         "en": "The point in time the Invoice is due."
       },
-      "required": false,
-      "inputHint": "SingleLine"
+      "required": false
     },
     {
       "name": "interfaceInvoiceId",

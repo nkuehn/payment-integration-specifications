@@ -84,7 +84,6 @@ fieldDefinitions:
     label:
       en: The point in time the Invoice is due.
     required: false
-    inputHint: SingleLine
   -
     name: interfaceInvoiceId
     type:
