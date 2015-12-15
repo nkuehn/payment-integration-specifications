@@ -110,10 +110,29 @@ fieldDefinitions:
   -
     name: cardNetwork
     type:
-      name: String
+      name: Enum
+      values:
+        -
+          key: VISA
+          label: Visa
+        -
+          key: MASTERCARD
+          label: MasterCard
+        -
+          key: DISCOVER
+          label: Discover
+        -
+          key: AMERICAN_EXPRESS
+          label: American Express
+        -
+          key: DINERS_CLUB
+          label: Diners Club
+        -
+          key: JCB
+          label: JCB
+        -
+          key: CARTE_BANCAIRE
+          label: CB (Carte Bancaire / Carte Bleue)
     label:
       en: Name of the Card Network (e.g. MasterCard, VISA, etc.)
     required: false
-    inputHint: SingleLine
-
-
