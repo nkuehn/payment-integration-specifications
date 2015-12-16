@@ -109,7 +109,7 @@
       "inputHint": "SingleLine"
     },
     {
-      "name": "truncatedCardNumber",
+      "name": "maskedCardNumber",
       "type": {
         "name": "String"
       },

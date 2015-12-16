@@ -85,7 +85,7 @@ fieldDefinitions:
     inputHint: SingleLine
   # PCI-Neutral Credit Card Placeholder Data (returned from the PSP API, do not generate yourself)
   -
-    name: truncatedCardNumber
+    name: maskedCardNumber
     type:
       name: String
     label:
