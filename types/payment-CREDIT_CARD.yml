@@ -133,6 +133,12 @@ fieldDefinitions:
         -
           key: CARTE_BANCAIRE
           label: CB (Carte Bancaire / Carte Bleue)
+        -
+          key: MAESTRO_UK
+          label: Maestro Card UK (Debit Card)
+        -
+          key: MAESTRO_INTERNATIONAL
+          label: Maestro Card International (Debit Card)
     label:
       en: Name of the Card Network (e.g. MasterCard, VISA, etc.)
     required: false
