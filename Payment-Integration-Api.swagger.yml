@@ -14,12 +14,10 @@ paths:
   /commercetools/handle/{resource}/{id}:
     get:
       summary: |
-        Trigger to force handling of a commerceotols payment object.
-        Passing the Cart or Order instead of the Payment ID enables a more efficient implementation and is therefore preferable.
+        Trigger to force handling of a commerceotols payment object
         Situations that are formally valid in commercetools, but are not supported:
-        1. Cart / Order passed that referenced more than one Payment. Please do separate Calls per Payment and pass Payment id.
-        2. Payments that are referenced by more than one Cart or more than one Order. This is a dubious situation.
-        3. Cart / Order and Payment Resource reference different Customers. This is a dubious situation.
+        1. Payments that are referenced by more than one Cart or more than one Order (it is not clear where to take the required data from the Cart/Order from)
+        3. Cart / Order and Payment Resource reference differing Customers (it is not clear where to take the Customer data from).
       parameters:
         - name: resource
           in: path
@@ -27,36 +25,17 @@ paths:
           required: true
           type: string
           enum:
-            - "carts"
-            - "orders"
             - "payments"
         - name: id
           in: path
-          description: commercetools id of the Payment that should be handled or the Cart or Order whose referenced payment(s) should be handled.
+          description: commercetools id of the Payment that should be handled.
           required: true
           type: string
-        # the following two can be removed if the decision is taken to guarantee consistency on Carts and Customers, too.
-        - name: cartVersion
-          in: query
-          description: Optional last known version of the Cart to be handled. Protects against concurrent modification an not-yet-consistent state of the CT platform.
-          required: false
-          type: integer
-          format: int32
-        - name: customerVersion
-          in: query
-          description: Optional last known version of the Customer to be handled. Protects against concurrent modification an not-yet-consistent state of the CT platform. Recommended to pass in non-guest checkouts.
-          required: false
-          type: integer
-          format: int32
       responses:
         '200':
           description: Found the resource and successfully handled it.
-          schema:
-            $ref: '#/definitions/PaymentStatus'
         '202':
           description: Found the resource, but the payment API could not immediately complete the necessary actions. Please try again later with the identical request.
-          schema:
-            $ref: '#/definitions/PaymentStatus'
         '403':
           description: The configuration of the service does not allow this request (e.g. not on optional IP whitelist, optional required authentication not passed).
           schema:
@@ -69,10 +48,6 @@ paths:
           description: Given resource could not be found.
           schema:
             $ref: '#/definitions/Error'
-        '409':
-          description: The given resource does not have the given version yet (platform not yet consistent) or any more (concurrent modification).
-          schema:
-            $ref: '#/definitions/Error'
         default:
           description: Unexpected error
           schema:
@@ -80,46 +55,11 @@ paths:
   /FooBar/listen:
     get:
       summary: Receives notification / status calls (e.g. webhooks) from the PSP payment interfaces. Completely custom per payment interface implementation.
+      summary: Receives notification / status calls (e.g. webhooks) from the PSP payment interfaces. Completely custom per payment interface implementation.
       responses:
         default:
           description: PSP specific. Often just a string "OK".
 definitions:
-  PaymentStatus:
-    type: object
-    required:
-      - statusCode
-      - message
-    properties:
-      statusCode:
-        description: The HTTP status code.
-        type: integer
-        format: int32
-      message:
-        description: The description text of the Status as defined in this api definition (see responses description).
-        type: string
-      lastTransactionState:
-        description: The value of the `state` field of the last Transaction in the handled Payment
-        type: string
-        enum:
-          - "Pending"
-          - "Success"
-          - "Failure"
-      redirectUrl:
-        description: if the property is set, redirect to that URL. The success / cancel / error URLs are set in the Payment Resource.
-        type: string
-      paymentResource:
-        description: the complete commercetools payment object. Only returned if the client is authorized in some implementation specific way.
-        type: object
-        # TODO swagger does not support "wildcard" free json and since 2.0 does not allow external JSON schema references any more.  So this is just empty in the definiton.
-      # the following two can be removed if the decision is taken to guarantee consistency on Carts and Customers, too.
-      cartVersion:
-        type: integer
-        format: int32
-        description: The last known version of the Cart Object handled, if so. Implicitly communicates whether something has changed at all.
-      customerVersion:
-        type: integer
-        format: int32
-        description: The last known version of the Order Object handled, if so. Implicitly communicates whether something has changed at all.
   Error:
     # This Error Object has the same structure as the commercetools API Error Objects. This allows a coherent pattern and maybe some re-use. See http://dev.commercetools.com/http-api-errors.html#error-responses
     type: object
