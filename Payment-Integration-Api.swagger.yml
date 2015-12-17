@@ -11,30 +11,41 @@ basePath: /api/v1/
 produces:
   - application/json
 paths:
-  /commercetools/handle:
+  /commercetools/handle/{resource}/{id}:
     get:
       summary: |
         Trigger to force handling of a commerceotols payment object.
         Passing the Cart or Order instead of the Payment ID enables a more efficient implementation and is therefore preferable.
+        Situations that are formally valid in commercetools, but are not supported:
+        1. Cart / Order passed that referenced more than one Payment. Please do separate Calls per Payment and pass Payment id.
+        2. Payments that are referenced by more than one Cart or more than one Order. This is a dubious situation.
+        3. Cart / Order and Payment Resource reference different Customers. This is a dubious situation.
       parameters:
-        - name: id
-          in: query
-          description: commercetools id of the Payment that should be handled or the Cart or Order whose referenced payment(s) should be handled.
-          required: true
-          type: string
         - name: resource
-          in: query
+          in: path
           description: The resource type the given ID refers to.
           required: true
           type: string
           enum:
-            - "Cart"
-            - "Order"
-            - "Payment"
-        - name: version
-          in: query
-          description: last known version of the Cart, Order or Payment to be handled. Version allows more efficient implementation and protects against concurrent modification an not-yet-consistent state of the CT platform.
+            - "carts"
+            - "orders"
+            - "payments"
+        - name: id
+          in: path
+          description: commercetools id of the Payment that should be handled or the Cart or Order whose referenced payment(s) should be handled.
           required: true
+          type: string
+        # the following two can be removed if the decision is taken to guarantee consistency on Carts and Customers, too.
+        - name: cartVersion
+          in: query
+          description: Optional last known version of the Cart to be handled. Protects against concurrent modification an not-yet-consistent state of the CT platform.
+          required: false
+          type: integer
+          format: int32
+        - name: customerVersion
+          in: query
+          description: Optional last known version of the Customer to be handled. Protects against concurrent modification an not-yet-consistent state of the CT platform. Recommended to pass in non-guest checkouts.
+          required: false
           type: integer
           format: int32
       responses:
@@ -75,6 +86,9 @@ paths:
 definitions:
   PaymentStatus:
     type: object
+    required:
+      - statusCode
+      - message
     properties:
       statusCode:
         description: The HTTP status code.
@@ -83,21 +97,36 @@ definitions:
       message:
         description: The description text of the Status as defined in this api definition (see responses description).
         type: string
-      newCartVersion:
+      lastTransactionState:
+        description: The value of the `state` field of the last Transaction in the handled Payment
+        type: string
+        enum:
+          - "Pending"
+          - "Success"
+          - "Failure"
+      redirectUrl:
+        description: if the property is set, redirect to that URL. The success / cancel / error URLs are set in the Payment Resource.
+        type: string
+      paymentResource:
+        description: the complete commercetools payment object. Only returned if the client is authorized in some implementation specific way.
+        type: object
+        # TODO swagger does not support "wildcard" free json and since 2.0 does not allow external JSON schema references any more.  So this is just empty in the definiton.
+      # the following two can be removed if the decision is taken to guarantee consistency on Carts and Customers, too.
+      cartVersion:
         type: integer
         format: int32
-        description: The last known version of the Cart Object passed via the cartId parameter. In some situations this can help the frontend implementation save one API call. Implicitly communicates whether something has changed at all.
-      newOrderVersion:
+        description: The last known version of the Cart Object handled, if so. Implicitly communicates whether something has changed at all.
+      customerVersion:
         type: integer
         format: int32
-        description: The last known version of the Order Object passed via the orderId parameter. In some situations this can help the frontend implementation save one API call. Implicitly communicates whether something has changed at all.
-      newPaymentVersion:
-        type: integer
-        format: int32
-        description: the last known version of the Payment Object passed via the paymentId parameter. If called via orderId and the respective Order references just one Payment, the last version of that payment. Otherwise not set. In some situations this can help the frontend implementation save one API call. Implicitly communicates whether something has changed at all.
+        description: The last known version of the Order Object handled, if so. Implicitly communicates whether something has changed at all.
   Error:
     # This Error Object has the same structure as the commercetools API Error Objects. This allows a coherent pattern and maybe some re-use. See http://dev.commercetools.com/http-api-errors.html#error-responses
     type: object
+    required:
+      - statusCode
+      - message
+      - errors
     properties:
       statusCode:
         description: The HTTP status code of the overall error situation. Must be equal to the actual HTTP status code sent.
