@@ -18,6 +18,10 @@ object MethodKeys {
 
     val file = s"""package $packageName;
 
+/**
+ * This file is generated from Method-Keys.md. Do not edit!
+ * See https://github.com/nkuehn/payment-integration-specifications/tree/scala-tools
+ */
 public class MethodKeys {
 $methodDefinitions
 }
