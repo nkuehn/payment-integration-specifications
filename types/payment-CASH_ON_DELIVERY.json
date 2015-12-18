@@ -1,0 +1,36 @@
+{
+  "key": "payment-CASH_ON_DELIVERY",
+  "name": {
+    "en": "General Payment Type for Cash on Delivery payments"
+  },
+  "description": {
+    "en": "extends the CTP Payment Resource with the standard fields for cash on delivery payments. No special fields yet."
+  },
+  "resourceTypeIds": [
+    "payment"
+  ],
+  "fieldDefinitions": [
+    {
+      "name": "languageCode",
+      "type": {
+        "name": "String"
+      },
+      "label": {
+        "en": "Hint to the PSP integration service, which language to take from CTP LString / LEnum data. ISO language code."
+      },
+      "required": true,
+      "inputHint": "SingleLine"
+    },
+    {
+      "name": "reference",
+      "type": {
+        "name": "String"
+      },
+      "label": {
+        "en": "Short reference code that the buyer is supposed to include in the money transfer to allow identification."
+      },
+      "required": true,
+      "inputHint": "SingleLine"
+    }
+  ]
+}

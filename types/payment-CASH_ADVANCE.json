@@ -1,0 +1,102 @@
+{
+  "key": "payment-CASH_ADVANCE",
+  "name": {
+    "en": "General Payment Type for Cash Advance"
+  },
+  "description": {
+    "en": "extends the CTP Payment Resource with the standard fields for advance cash (money first) payments to the merchant. It does not imply that actual Cash is moved. Different from Invoice payments (goods first)."
+  },
+  "resourceTypeIds": [
+    "payment"
+  ],
+  "fieldDefinitions": [
+    {
+      "name": "languageCode",
+      "type": {
+        "name": "String"
+      },
+      "label": {
+        "en": "Hint to the PSP integration service, which language to take from CTP LString / LEnum data. ISO language code."
+      },
+      "required": true,
+      "inputHint": "SingleLine"
+    },
+    {
+      "name": "reference",
+      "type": {
+        "name": "String"
+      },
+      "label": {
+        "en": "Short reference code that the buyer is supposed to include in the money transfer to allow identification."
+      },
+      "required": true,
+      "inputHint": "SingleLine"
+    },
+    {
+      "name": "paidFromAccountHolderName",
+      "type": {
+        "name": "String"
+      },
+      "label": {
+        "en": "Full Name of the Bank Account Holder the amount was paid from."
+      },
+      "required": false,
+      "inputHint": "SingleLine"
+    },
+    {
+      "name": "paidFromIBAN",
+      "type": {
+        "name": "String"
+      },
+      "label": {
+        "en": "Full machine-read formatted (i.e. no spaces or separators) IBAN the amount was paid from."
+      },
+      "required": false,
+      "inputHint": "SingleLine"
+    },
+    {
+      "name": "paidFromBIC",
+      "type": {
+        "name": "String"
+      },
+      "label": {
+        "en": "Full BIC (no spaces or separators) the amount was paid from."
+      },
+      "required": false,
+      "inputHint": "SingleLine"
+    },
+    {
+      "name": "refundToAccountHolderName",
+      "type": {
+        "name": "String"
+      },
+      "label": {
+        "en": "Full Name of the Bank Account Holder to refund to."
+      },
+      "required": false,
+      "inputHint": "SingleLine"
+    },
+    {
+      "name": "refundToIBAN",
+      "type": {
+        "name": "String"
+      },
+      "label": {
+        "en": "Full machine-read formatted IBAN to refund to (i.e. no spaces or separators)."
+      },
+      "required": false,
+      "inputHint": "SingleLine"
+    },
+    {
+      "name": "refundToBIC",
+      "type": {
+        "name": "String"
+      },
+      "label": {
+        "en": "Full BIC to refund to (no spaces or separators)."
+      },
+      "required": false,
+      "inputHint": "SingleLine"
+    }
+  ]
+}

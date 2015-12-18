@@ -15,50 +15,34 @@
     "application/json"
   ],
   "paths": {
-    "/commercetools/handle": {
+    "/commercetools/handle/{resource}/{id}": {
       "get": {
-        "summary": "Trigger to force handling of a commerceotols payment object.\nPassing the Cart or Order instead of the Payment ID enables a more efficient implementation and is therefore preferable.\n",
+        "summary": "Trigger to force handling of a commerceotols payment object\nSituations that are formally valid in commercetools, but are not supported:\n1. Payments that are referenced by more than one Cart or more than one Order (it is not clear where to take the required data from the Cart/Order from)\n3. Cart / Order and Payment Resource reference differing Customers (it is not clear where to take the Customer data from).\n",
         "parameters": [
           {
-            "name": "id",
-            "in": "query",
-            "description": "commercetools id of the Payment that should be handled or the Cart or Order whose referenced payment(s) should be handled.",
-            "required": true,
-            "type": "string"
-          },
-          {
             "name": "resource",
-            "in": "query",
+            "in": "path",
             "description": "The resource type the given ID refers to.",
             "required": true,
             "type": "string",
             "enum": [
-              "Cart",
-              "Order",
-              "Payment"
+              "payments"
             ]
           },
           {
-            "name": "version",
-            "in": "query",
-            "description": "last known version of the Cart, Order or Payment to be handled. Version allows more efficient implementation and protects against concurrent modification an not-yet-consistent state of the CT platform.",
+            "name": "id",
+            "in": "path",
+            "description": "commercetools id of the Payment that should be handled.",
             "required": true,
-            "type": "integer",
-            "format": "int32"
+            "type": "string"
           }
         ],
         "responses": {
           "200": {
-            "description": "Found the resource and successfully handled it.",
-            "schema": {
-              "$ref": "#/definitions/PaymentStatus"
-            }
+            "description": "Found the resource and successfully handled it."
           },
           "202": {
-            "description": "Found the resource, but the payment API could not immediately complete the necessary actions. Please try again later with the identical request.",
-            "schema": {
-              "$ref": "#/definitions/PaymentStatus"
-            }
+            "description": "Found the resource, but the payment API could not immediately complete the necessary actions. Please try again later with the identical request."
           },
           "400": {
             "description": "One of a) This service is not responsible for the payment interface mentioned in the given payment resource. This service is responsible for the PAYONE interface only. b) (reserved for future cases)",
@@ -74,12 +58,6 @@
           },
           "404": {
             "description": "Given resource could not be found.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "409": {
-            "description": "The given resource does not have the given version yet (platform not yet consistent) or any more (concurrent modification).",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -105,37 +83,13 @@
     }
   },
   "definitions": {
-    "PaymentStatus": {
-      "type": "object",
-      "properties": {
-        "statusCode": {
-          "description": "The HTTP status code.",
-          "type": "integer",
-          "format": "int32"
-        },
-        "message": {
-          "description": "The description text of the Status as defined in this api definition (see responses description).",
-          "type": "string"
-        },
-        "newCartVersion": {
-          "type": "integer",
-          "format": "int32",
-          "description": "The last known version of the Cart Object passed via the cartId parameter. In some situations this can help the frontend implementation save one API call. Implicitly communicates whether something has changed at all."
-        },
-        "newOrderVersion": {
-          "type": "integer",
-          "format": "int32",
-          "description": "The last known version of the Order Object passed via the orderId parameter. In some situations this can help the frontend implementation save one API call. Implicitly communicates whether something has changed at all."
-        },
-        "newPaymentVersion": {
-          "type": "integer",
-          "format": "int32",
-          "description": "the last known version of the Payment Object passed via the paymentId parameter. If called via orderId and the respective Order references just one Payment, the last version of that payment. Otherwise not set. In some situations this can help the frontend implementation save one API call. Implicitly communicates whether something has changed at all."
-        }
-      }
-    },
     "Error": {
       "type": "object",
+      "required": [
+        "statusCode",
+        "message",
+        "errors"
+      ],
       "properties": {
         "statusCode": {
           "description": "The HTTP status code of the overall error situation. Must be equal to the actual HTTP status code sent.",

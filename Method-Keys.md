@@ -40,16 +40,6 @@ specialization / variants.
 | INSTALLMENT-BILLSAFE |  |  |
 | INSTALLMENT-KLARNA |  |  |
 | CREDIT_CARD | Credit Card | Generic Key for any type of Credit Card (recommended, implementation will autodetect specific variant) |
-| CREDIT_CARD--3DSECURE | (two dashes!) Credit Card with explicit whish for 3Dsecure check | Will autodetect the card network, but force 3Dsecure check redirect |
-| CREDIT_CARD-MASTERCARD |  | In case explicit restriction to MasterCard is intended |
-| CREDIT_CARD-MASTERCARD-SECURECODE |  | 3Dsecure of MasterCard |
-| CREDIT_CARD-VISA |  |  |
-| CREDIT_CARD-VISA-VERIFIED_BY_VISA |  | 3Dsecure of VISA |
-| CREDIT_CARD-AMERICAN_EXPRESS |  |  |
-| CREDIT_CARD-AMERICAN_EXPRESS-SAFE_KEY |  | 3Dsecure of Amex |
-| CREDIT_CARD-DINERS_CLUB |  |  |
-| CREDIT_CARD-DISCOVER |  |  |
-| CREDIT_CARD-JCB |  |  |
 | DEBIT_CARD |  | (probably never directly used)  |
 | DEBIT_CARD-MAESTRO |  |  |
 | DEBIT_CARD-CARTE_BLEUE |  |  |
@@ -66,11 +56,26 @@ specialization / variants.
 | BANK_TRANSFER-POSTFINANCE_EFINANCE |  | Switzerland specific |
 | BANK_TRANSFER-POSTFINANCE_CARD |  | Switzerland specific |
 |  |  |  |
-|  |  |  |
-|  |  |  |
-|  |  |  |
-|  |  |  |
 
+
+## Optional Credit Card Network specific methods:
+
+Normally the selection of credit card network is just done in the checkout UI and after that implicit in the card data placeholder / the real card number on the PSP side respectively.  
+The 3secure preference is usually done through the respecive boolean field on the `payment-CREDIT_CARD` payment type. 
+ 
+As there may be edge cases where the actual method key needs to deviate (e.g. for routing to different PSPs per Network) the following conventional keys can be used:
+
+| Key | Name | Description, external references |
+| CREDIT_CARD--3DSECURE | (two dashes!) Credit Card with explicit whish for 3Dsecure check | Will autodetect the card network, but force 3Dsecure check redirect |
+| CREDIT_CARD-MASTERCARD |  | In case explicit restriction to MasterCard is intended |
+| CREDIT_CARD-MASTERCARD-SECURECODE |  | 3Dsecure of MasterCard |
+| CREDIT_CARD-VISA |  |  |
+| CREDIT_CARD-VISA-VERIFIED_BY_VISA |  | 3Dsecure of VISA |
+| CREDIT_CARD-AMERICAN_EXPRESS |  |  |
+| CREDIT_CARD-AMERICAN_EXPRESS-SAFE_KEY |  | 3Dsecure of Amex |
+| CREDIT_CARD-DINERS_CLUB |  |  |
+| CREDIT_CARD-DISCOVER |  |  |
+| CREDIT_CARD-JCB |  |  |
 
 
 
