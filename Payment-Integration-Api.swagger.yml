@@ -55,7 +55,6 @@ paths:
   /FooBar/listen:
     get:
       summary: Receives notification / status calls (e.g. webhooks) from the PSP payment interfaces. Completely custom per payment interface implementation.
-      summary: Receives notification / status calls (e.g. webhooks) from the PSP payment interfaces. Completely custom per payment interface implementation.
       responses:
         default:
           description: PSP specific. Often just a string "OK".
