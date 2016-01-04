@@ -114,7 +114,11 @@ fieldDefinitions:
     type:
       name: String
     label:
-      en: SEPA Mandate ID. Field can be used to optionally pre-set the Mandate ID if the Merchant has these capabilities. Filled with the actual mandate ID from PSP API. Not supported by all PSPs.
+      en: |
+        SEPA Mandate ID. Field can be used to optionally pre-set the Mandate ID if the Merchant has the capabilities to
+        generate own ones OR if an existing one has been saved for the buyer (e.g. on the Customer resource). If the
+        ID turns out to be invalid a new one is generated. If the field is not set, the Payment integration will create
+        a new mandate and write the ID here. PDF acquisition differs per Interface.
     required: false
     inputHint: SingleLine
   -
