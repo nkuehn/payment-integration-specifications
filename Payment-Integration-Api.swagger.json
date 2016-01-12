@@ -39,10 +39,16 @@
         ],
         "responses": {
           "200": {
-            "description": "Found the resource and successfully handled it."
+            "description": "Found the resource and successfully handled it.",
+            "schema": {
+              "$ref": "#/definitions/PaymentStatus"
+            }
           },
           "202": {
-            "description": "Found the resource, but the payment API could not immediately complete the necessary actions. Please try again later with the identical request."
+            "description": "Found the resource, but the payment API could not immediately complete the necessary actions. Please try again later with the identical request.",
+            "schema": {
+              "$ref": "#/definitions/PaymentStatus"
+            }
           },
           "400": {
             "description": "One of a) This service is not responsible for the payment interface mentioned in the given payment resource. This service is responsible for the PAYONE interface only. b) (reserved for future cases)",
@@ -83,6 +89,28 @@
     }
   },
   "definitions": {
+    "PaymentStatus": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "description": "The description text of the HTTP Status as defined in this api definition (see responses description).",
+          "type": "string"
+        },
+        "handledTransactionState": {
+          "description": "If a Transaction was handled, the value of the `state` field of the Transaction that was handled.",
+          "type": "string",
+          "enum": [
+            "Pending",
+            "Success",
+            "Failure"
+          ]
+        },
+        "redirectRequired": {
+          "description": "If the property is true, a redirect is necessary. Specifics are stored in the payment resource (custom fields defined by the standard types).",
+          "type": "boolean"
+        }
+      }
+    },
     "Error": {
       "type": "object",
       "required": [
