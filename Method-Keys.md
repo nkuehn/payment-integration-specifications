@@ -66,6 +66,7 @@ The 3secure preference is usually done through the respecive boolean field on th
 As there may be edge cases where the actual method key needs to deviate (e.g. for routing to different PSPs per Network) the following conventional keys can be used:
 
 | Key | Name | Description, external references |
+|---|---|---|
 | CREDIT_CARD--3DSECURE | (two dashes!) Credit Card with explicit whish for 3Dsecure check | Will autodetect the card network, but force 3Dsecure check redirect |
 | CREDIT_CARD-MASTERCARD |  | In case explicit restriction to MasterCard is intended |
 | CREDIT_CARD-MASTERCARD-SECURECODE |  | 3Dsecure of MasterCard |
