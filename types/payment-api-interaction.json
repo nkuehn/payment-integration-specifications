@@ -1,0 +1,50 @@
+{
+  "key": "payment-api-interaction",
+  "name": {
+    "en": "generic type to describe an HTTP API interaction"
+  },
+  "description": {
+    "en": "set the 'API' field to either a unique name or simply the URL of the API called. Write the request parameters into the Set of Strings 'requestParameters', e.g. like 'clientId=12345'. Similar for the response Parameters"
+  },
+  "resourceTypeIds": [
+    "payment-interface-interaction"
+  ],
+  "fieldDefinitions": [
+    {
+      "name": "API",
+      "type": {
+        "name": "String"
+      },
+      "label": {
+        "en": "the API that was called in the interaction"
+      },
+      "required": false
+    },
+    {
+      "name": "requestParameters",
+      "type": {
+        "name": "Set",
+        "elementType": {
+          "name": "String"
+        }
+      },
+      "label": {
+        "en": "array of request data strings"
+      },
+      "required": false
+    },
+    {
+      "name": "responseParameters",
+      "type": {
+        "name": "Set",
+        "elementType": {
+          "name": "String"
+        }
+      },
+      "label": {
+        "en": "array of response data strings"
+      },
+      "required": false
+    }
+  ]
+}
