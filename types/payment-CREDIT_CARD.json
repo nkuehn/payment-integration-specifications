@@ -180,6 +180,14 @@
           {
             "key": "MAESTRO_INTERNATIONAL",
             "label": "Maestro Card International (Debit Card)"
+          },
+          {
+            "key": "SWITCH",
+            "label": "Switch / Solo"
+          },
+          {
+            "key": "UATP",
+            "label": "UATP"
           }
         ]
       },

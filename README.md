@@ -39,6 +39,10 @@ We are aware that the method is implicitly defined via the custom type set on th
 patterns and it may happen that certain situation need payment API specific payment types although this is not the intended
 implementation style. 
 
+## Payment API Interaction Type
+
+To store the payment API interactions a custom type is needed, too.  A [simple generic default is provided here](types/payment-api-interaction.json).
+
 ## Checkout Protocol
 
 All PSP integration services should at least support the System Interaction Protocol defined in 
