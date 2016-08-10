@@ -65,7 +65,7 @@
       "required": false,
       "inputHint": "SingleLine"
     },
-        {
+    {
       "name": "paidToAccountHolderName",
       "type": {
         "name": "String"
