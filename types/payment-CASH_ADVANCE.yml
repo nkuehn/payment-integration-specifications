@@ -48,6 +48,31 @@ fieldDefinitions:
       en: Full BIC (no spaces or separators) the amount was paid from.
     required: false
     inputHint: SingleLine
+  # Clearing Data: Filled by PSP with information where the amount has to be paid to.
+  -
+    name: paidToAccountHolderName
+    type:
+      name: String
+    label:
+      en: Full Name of the Bank Account Holder the amount was paid to.
+    required: false
+    inputHint: SingleLine
+  -
+    name: paidToIBAN
+    type:
+      name: String
+    label:
+      en: Full machine-read formatted (i.e. no spaces or separators) IBAN the amount was paid to.
+    required: false
+    inputHint: SingleLine
+  -
+    name: paidToBIC
+    type:
+      name: String
+    label:
+      en: Full BIC (no spaces or separators) the amount was paid to.
+    required: false
+    inputHint: SingleLine
   # Refund Trigger Data: Filled by Merchant with information where to transfer eventual refunds. Required only when a Refund is triggered
   -
     name: refundToAccountHolderName
