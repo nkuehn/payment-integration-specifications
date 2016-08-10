@@ -77,7 +77,7 @@
       "inputHint": "SingleLine"
     },
     {
-      "name": "paidtoIBAN",
+      "name": "paidToIBAN",
       "type": {
         "name": "String"
       },
