@@ -9,7 +9,7 @@ the development of reusable integrations.
 Please submit a pull request to add or improve a payment method that does not have a conventional key. 
 
 Specialized Variations of Methods are "flattened", but there are conventions for the high-level method defined here,too 
-(e.g. CREDITCARD, CREDITCARD-MASTERCARD, CREDITCARD-MASTERCARD-3D). 
+(e.g. `basic-card`, `basic-card-mastercard`). 
 
 Uppercase latin letters, the underscore and decimal numbers are allowed \[A-Z,_,0-9\]\*, the dash is reserved for 
 specialization / variants. 
@@ -39,7 +39,7 @@ specialization / variants.
 | INSTALLMENT-DIRECT |  | Direct Credit Contract with the Merchant |
 | INSTALLMENT-BILLSAFE |  |  |
 | INSTALLMENT-KLARNA |  |  |
-| CREDIT_CARD | Credit Card | Generic Key for any type of Credit Card (recommended, implementation will autodetect specific variant) |
+| basic-card | Credit / Debit / Prepaid Card | Generic Key for any type of Credit Card (recommended, implementation will autodetect specific variant) |
 | DEBIT_CARD |  | (probably never directly used)  |
 | DEBIT_CARD-MAESTRO |  |  |
 | DEBIT_CARD-CARTE_BLEUE |  |  |
@@ -61,17 +61,17 @@ specialization / variants.
 ## Optional Credit Card Network specific methods:
 
 Normally the selection of credit card network is just done in the checkout UI and after that implicit in the card data placeholder / the real card number on the PSP side respectively.  
-The 3secure preference is usually done through the respecive boolean field on the `payment-CREDIT_CARD` payment type. 
+The 3secure preference is usually done through the respecive boolean field on the `payment-basic-card` payment type. 
  
 The naming scheme is to postfix the [W3C standardized names](https://www.w3.org/Payments/card-network-ids) 
 
- * CREDIT_CARD-mastercard 
- * CREDIT_CARD-visa
- * CREDIT_CARD-amex
- * CREDIT_CARD-diners
- * CREDIT_CARD-discover
- * CREDIT_CARD-jcb
- * CREDIT_CARD-cartebancaire
- * CREDIT_CARD-mir
- * CREDIT_CARD-unionpay
+ * basic-card-mastercard 
+ * basic-card-visa
+ * basic-card-amex
+ * basic-card-diners
+ * basic-card-discover
+ * basic-card-jcb
+ * basic-card-cartebancaire
+ * basic-card-mir
+ * basic-card-unionpay
  
