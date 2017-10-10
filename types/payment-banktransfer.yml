@@ -1,4 +1,4 @@
-key: payment-BANK_TRANSFER
+key: payment-banktransfer
 name:
   en: General Payment Type for all Online Bank Transfer Methods
 description:
@@ -9,14 +9,6 @@ resourceTypeIds:
   - payment
 fieldDefinitions:
   # Fields that all payment methods need (candidates to become a built-in):
-  -
-    name: languageCode
-    type:
-      name: String
-    label:
-      en: Hint to the PSP integration service, which language to take from CTP LString / LEnum data. ISO language code.
-    required: true
-    inputHint: SingleLine
   -
     name: reference
     type:

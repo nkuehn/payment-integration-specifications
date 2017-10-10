@@ -1,4 +1,4 @@
-key: payment-INVOICE-KLARNA
+key: payment-invoice-klarna
 name:
   en: Payment Type for Klarna Invoice Payments
 description:
@@ -7,14 +7,6 @@ resourceTypeIds:
   - payment
 fieldDefinitions:
   # Fields that all payment methods need (candidates to become a built-in):
-  -
-    name: languageCode
-    type:
-      name: String
-    label:
-      en: Hint to the PSP integration service, which language to take from CTP LString / LEnum data. ISO language code.
-    required: true
-    inputHint: SingleLine
   -
     name: reference
     type:

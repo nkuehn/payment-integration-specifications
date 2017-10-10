@@ -1,20 +1,12 @@
-key: payment-WALLET
+key: payment-wallet
 name:
-  en: CTP Standard Payment Resource for Wallets like PayPal
+  en: CTP Standard Payment Resource for Wallets like PayPal, Skrill, Moneta etc.
 description:
   en: extends the CTP Payment Resource with minimalistic standard fields for a Wallet Payment with redirect checkout.
 resourceTypeIds:
   - payment
 fieldDefinitions:
   # Fields that all payment methods need (candidates to become a built-in):
-  -
-    name: languageCode
-    type:
-      name: String
-    label:
-      en: Hint to the PSP integration service, which language to take from CTP LString / LEnum data. ISO language code.
-    required: true
-    inputHint: SingleLine
   -
     name: reference
     type:

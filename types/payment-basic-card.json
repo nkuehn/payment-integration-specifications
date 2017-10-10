@@ -1,26 +1,15 @@
 {
-  "key": "payment-CREDIT_CARD",
+  "key": "payment-basic-card",
   "name": {
-    "en": "Credit Card Payment Resource"
+    "en": "Credit, Debit or Prepaid Card Payment"
   },
   "description": {
-    "en": "extends the CTP Payment Resource with the standard fields for a Credit Card payment. NEVER store Credit Card Data that fall under PCI DSS compliance in the commercetools platform. Always use the `cardDataPlaceholder` field to store the placeholder / token / id you have received from the direct communication of the browser with the PSP."
+    "en": "extends the CTP Payment Resource with the standard fields for a Credit, Debit or Prepaid Card payment. NEVER store Credit Card Data that fall under PCI DSS compliance in the commercetools platform. Always use the `cardDataPlaceholder` field to store the placeholder / token / id you have received from the direct communication of the browser with the PSP."
   },
   "resourceTypeIds": [
     "payment"
   ],
   "fieldDefinitions": [
-    {
-      "name": "languageCode",
-      "type": {
-        "name": "String"
-      },
-      "label": {
-        "en": "Hint to the PSP integration service, which language to take from CTP LString / LEnum data. ISO language code."
-      },
-      "required": true,
-      "inputHint": "SingleLine"
-    },
     {
       "name": "reference",
       "type": {
@@ -120,7 +109,7 @@
       "inputHint": "SingleLine"
     },
     {
-      "name": "cardHolderName",
+      "name": "cardholderName",
       "type": {
         "name": "String"
       },
@@ -131,12 +120,22 @@
       "inputHint": "SingleLine"
     },
     {
-      "name": "cardExpiryDate",
+      "name": "expiryMonth",
       "type": {
-        "name": "Date"
+        "name": "String"
       },
       "label": {
-        "en": "Card expiry date. As Card expiry dates are months only, the day set here is considered a no-information.  If this field is inteded to be used semantically, the last day of the expiration month of the card should be used."
+        "en": "Card expiry month.  Use padded zeroes as \"01\" etc on card."
+      },
+      "required": false
+    },
+    {
+      "name": "expiryYear",
+      "type": {
+        "name": "String"
+      },
+      "label": {
+        "en": "Card expiry year.  Use full four digits like \"2019\"."
       },
       "required": false
     },
@@ -146,53 +145,43 @@
         "name": "Enum",
         "values": [
           {
-            "key": "VISA",
-            "label": "Visa"
-          },
-          {
-            "key": "MASTERCARD",
-            "label": "MasterCard"
-          },
-          {
-            "key": "DISCOVER",
-            "label": "Discover"
-          },
-          {
-            "key": "AMERICAN_EXPRESS",
+            "key": "amex",
             "label": "American Express"
           },
           {
-            "key": "DINERS_CLUB",
-            "label": "Diners Club"
-          },
-          {
-            "key": "JCB",
-            "label": "JCB"
-          },
-          {
-            "key": "CARTE_BANCAIRE",
+            "key": "cartebancaire",
             "label": "CB (Carte Bancaire / Carte Bleue)"
           },
           {
-            "key": "MAESTRO_UK",
-            "label": "Maestro Card UK (Debit Card)"
+            "key": "diners",
+            "label": "Diners Club"
           },
           {
-            "key": "MAESTRO_INTERNATIONAL",
-            "label": "Maestro Card International (Debit Card)"
+            "key": "discover",
+            "label": "Discover"
           },
           {
-            "key": "SWITCH",
-            "label": "Switch / Solo"
+            "key": "jcb",
+            "label": "JCB"
           },
           {
-            "key": "UATP",
-            "label": "UATP"
+            "key": "mastercard",
+            "label": "MasterCard"
+          },
+          {
+            "key": "mir",
+            "label": "Мир (Mir)"
+          },
+          {
+            "key": "unionpay",
+            "label": "Union Pay"
+          },
+          {
+            "key": "visa",
+            "label": "Visa"
           }
-        ]
-      },
-      "label": {
-        "en": "Name of the Card Network (e.g. MasterCard, VISA, etc.)"
+        ],
+        "en": "The Card Network (e.g. MasterCard, VISA, etc.)"
       },
       "required": false
     }
