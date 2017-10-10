@@ -1,4 +1,4 @@
-key: payment-BANK_TRANSFER
+key: payment-banktransfer
 name:
   en: General Payment Type for all Online Bank Transfer Methods
 description:

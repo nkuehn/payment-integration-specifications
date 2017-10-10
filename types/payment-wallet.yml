@@ -1,6 +1,6 @@
-key: payment-WALLET
+key: payment-wallet
 name:
-  en: CTP Standard Payment Resource for Wallets like PayPal
+  en: CTP Standard Payment Resource for Wallets like PayPal, Skrill, Moneta etc.
 description:
   en: extends the CTP Payment Resource with minimalistic standard fields for a Wallet Payment with redirect checkout.
 resourceTypeIds:

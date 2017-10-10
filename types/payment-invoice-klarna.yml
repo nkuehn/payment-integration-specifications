@@ -1,4 +1,4 @@
-key: payment-INVOICE-KLARNA
+key: payment-invoice-klarna
 name:
   en: Payment Type for Klarna Invoice Payments
 description:

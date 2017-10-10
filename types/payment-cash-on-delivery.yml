@@ -1,4 +1,4 @@
-key: payment-CASH_ON_DELIVERY
+key: payment-cash-on-delivery
 name:
   en: General Payment Type for Cash on Delivery payments
 description:
