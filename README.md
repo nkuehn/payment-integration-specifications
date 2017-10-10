@@ -12,8 +12,17 @@ The commercetools [Payment Object](http://dev.commercetools.com/http-api-project
 for the name of the payment API the payment should be triggered and the payment method to be used.  They are part of 
 the [PaymentMethodInfo](http://dev.commercetools.com/http-api-projects-payments.html#paymentMethodInfo) structure. 
 
+The evolving W3C Payment Request API specification is used as a guideline where possible but does not cover everything:
+ * https://github.com/w3c/payment-request-info/wiki/PaymentMethodPractice
+ * Currently only the "Basic Card" Method is specified: 
+   * https://www.w3.org/TR/payment-method-id/#registry
+   * https://www.w3.org/TR/payment-method-basic-card/  
+   * https://www.w3.org/Payments/card-network-ids 
+
+## PSP Naming
+
 To allow safe operation of multiple PSPs in one project, PSP Intefaces have to use collision-free values in the 
-`paymentInterface` property.  These are not maintained here any more.  Using the company or API name turned out to be sufficient. 
+`paymentInterface` property.  These are not maintained here (any more). 
 
 ## Payment Object Types per Method
 

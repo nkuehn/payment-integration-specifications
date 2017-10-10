@@ -63,21 +63,15 @@ specialization / variants.
 Normally the selection of credit card network is just done in the checkout UI and after that implicit in the card data placeholder / the real card number on the PSP side respectively.  
 The 3secure preference is usually done through the respecive boolean field on the `payment-CREDIT_CARD` payment type. 
  
-As there may be edge cases where the actual method key needs to deviate (e.g. for routing to different PSPs per Network) the following conventional keys can be used:
+The naming scheme is to postfix the [W3C standardized names](https://www.w3.org/Payments/card-network-ids) 
 
-| Key | Name | Description, external references |
-|---|---|---|
-| CREDIT_CARD--3DSECURE | (two dashes!) Credit Card with explicit whish for 3Dsecure check | Will autodetect the card network, but force 3Dsecure check redirect |
-| CREDIT_CARD-MASTERCARD |  | In case explicit restriction to MasterCard is intended |
-| CREDIT_CARD-MASTERCARD-SECURECODE |  | 3Dsecure of MasterCard |
-| CREDIT_CARD-VISA |  |  |
-| CREDIT_CARD-VISA-VERIFIED_BY_VISA |  | 3Dsecure of VISA |
-| CREDIT_CARD-AMERICAN_EXPRESS |  |  |
-| CREDIT_CARD-AMERICAN_EXPRESS-SAFE_KEY |  | 3Dsecure of Amex |
-| CREDIT_CARD-DINERS_CLUB |  |  |
-| CREDIT_CARD-DISCOVER |  |  |
-| CREDIT_CARD-JCB |  |  |
-
-
-
-
+ * CREDIT_CARD-mastercard 
+ * CREDIT_CARD-visa
+ * CREDIT_CARD-amex
+ * CREDIT_CARD-diners
+ * CREDIT_CARD-discover
+ * CREDIT_CARD-jcb
+ * CREDIT_CARD-cartebancaire
+ * CREDIT_CARD-mir
+ * CREDIT_CARD-unionpay
+ 
