@@ -11,17 +11,6 @@
   ],
   "fieldDefinitions": [
     {
-      "name": "languageCode",
-      "type": {
-        "name": "String"
-      },
-      "label": {
-        "en": "Hint to the PSP integration service, which language to take from CTP LString / LEnum data. ISO language code."
-      },
-      "required": true,
-      "inputHint": "SingleLine"
-    },
-    {
       "name": "reference",
       "type": {
         "name": "String"
